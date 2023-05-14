@@ -1,0 +1,184 @@
+[
+  {
+    "level_": 0,
+    "message_": "Start JSON generation. Platform version: 21 min SDK version: armeabi-v7a",
+    "file_": "/Users/gangmini/AndroidStudioProjects/PHODO/opencv/libcxx_helper/CMakeLists.txt",
+    "tag_": "debug|armeabi-v7a",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": -1899547634
+  },
+  {
+    "level_": 0,
+    "message_": "rebuilding JSON /Users/gangmini/AndroidStudioProjects/PHODO/opencv/.cxx/Debug/e25461y3/armeabi-v7a/android_gradle_build.json due to:",
+    "file_": "/Users/gangmini/AndroidStudioProjects/PHODO/opencv/libcxx_helper/CMakeLists.txt",
+    "tag_": "debug|armeabi-v7a",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 999924253
+  },
+  {
+    "level_": 0,
+    "message_": "- expected json /Users/gangmini/AndroidStudioProjects/PHODO/opencv/.cxx/Debug/e25461y3/armeabi-v7a/android_gradle_build.json file is not present, will remove stale json folder",
+    "file_": "/Users/gangmini/AndroidStudioProjects/PHODO/opencv/libcxx_helper/CMakeLists.txt",
+    "tag_": "debug|armeabi-v7a",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": -1988090233
+  },
+  {
+    "level_": 0,
+    "message_": "- missing previous command file /Users/gangmini/AndroidStudioProjects/PHODO/opencv/.cxx/Debug/e25461y3/armeabi-v7a/metadata_generation_command.txt, will remove stale json folder",
+    "file_": "/Users/gangmini/AndroidStudioProjects/PHODO/opencv/libcxx_helper/CMakeLists.txt",
+    "tag_": "debug|armeabi-v7a",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 972284037
+  },
+  {
+    "level_": 0,
+    "message_": "- command changed from previous, will remove stale json folder",
+    "file_": "/Users/gangmini/AndroidStudioProjects/PHODO/opencv/libcxx_helper/CMakeLists.txt",
+    "tag_": "debug|armeabi-v7a",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 1265300862
+  },
+  {
+    "level_": 0,
+    "message_": "removing stale contents from \u0027/Users/gangmini/AndroidStudioProjects/PHODO/opencv/.cxx/Debug/e25461y3/armeabi-v7a\u0027",
+    "file_": "/Users/gangmini/AndroidStudioProjects/PHODO/opencv/libcxx_helper/CMakeLists.txt",
+    "tag_": "debug|armeabi-v7a",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": -2017461164
+  },
+  {
+    "level_": 0,
+    "message_": "created folder \u0027/Users/gangmini/AndroidStudioProjects/PHODO/opencv/.cxx/Debug/e25461y3/armeabi-v7a\u0027",
+    "file_": "/Users/gangmini/AndroidStudioProjects/PHODO/opencv/libcxx_helper/CMakeLists.txt",
+    "tag_": "debug|armeabi-v7a",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 705589704
+  },
+  {
+    "level_": 0,
+    "message_": "executing cmake Executable : /Users/gangmini/Library/Android/sdk/cmake/3.18.1/bin/cmake\narguments : \n-H/Users/gangmini/AndroidStudioProjects/PHODO/opencv/libcxx_helper\n-DCMAKE_SYSTEM_NAME\u003dAndroid\n-DCMAKE_EXPORT_COMPILE_COMMANDS\u003dON\n-DCMAKE_SYSTEM_VERSION\u003d21\n-DANDROID_PLATFORM\u003dandroid-21\n-DANDROID_ABI\u003darmeabi-v7a\n-DCMAKE_ANDROID_ARCH_ABI\u003darmeabi-v7a\n-DANDROID_NDK\u003d/Users/gangmini/Library/Android/sdk/ndk/21.4.7075529\n-DCMAKE_ANDROID_NDK\u003d/Users/gangmini/Library/Android/sdk/ndk/21.4.7075529\n-DCMAKE_TOOLCHAIN_FILE\u003d/Users/gangmini/Library/Android/sdk/ndk/21.4.7075529/build/cmake/android.toolchain.cmake\n-DCMAKE_MAKE_PROGRAM\u003d/Users/gangmini/Library/Android/sdk/cmake/3.18.1/bin/ninja\n-DCMAKE_LIBRARY_OUTPUT_DIRECTORY\u003d/Users/gangmini/AndroidStudioProjects/PHODO/opencv/build/intermediates/cxx/Debug/e25461y3/obj/armeabi-v7a\n-DCMAKE_RUNTIME_OUTPUT_DIRECTORY\u003d/Users/gangmini/AndroidStudioProjects/PHODO/opencv/build/intermediates/cxx/Debug/e25461y3/obj/armeabi-v7a\n-DCMAKE_BUILD_TYPE\u003dDebug\n-B/Users/gangmini/AndroidStudioProjects/PHODO/opencv/.cxx/Debug/e25461y3/armeabi-v7a\n-GNinja\n-DANDROID_STL\u003dc++_shared\njvmArgs : \n\n",
+    "file_": "/Users/gangmini/AndroidStudioProjects/PHODO/opencv/libcxx_helper/CMakeLists.txt",
+    "tag_": "debug|armeabi-v7a",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": -1612590390
+  },
+  {
+    "level_": 0,
+    "message_": "Executable : /Users/gangmini/Library/Android/sdk/cmake/3.18.1/bin/cmake\narguments : \n-H/Users/gangmini/AndroidStudioProjects/PHODO/opencv/libcxx_helper\n-DCMAKE_SYSTEM_NAME\u003dAndroid\n-DCMAKE_EXPORT_COMPILE_COMMANDS\u003dON\n-DCMAKE_SYSTEM_VERSION\u003d21\n-DANDROID_PLATFORM\u003dandroid-21\n-DANDROID_ABI\u003darmeabi-v7a\n-DCMAKE_ANDROID_ARCH_ABI\u003darmeabi-v7a\n-DANDROID_NDK\u003d/Users/gangmini/Library/Android/sdk/ndk/21.4.7075529\n-DCMAKE_ANDROID_NDK\u003d/Users/gangmini/Library/Android/sdk/ndk/21.4.7075529\n-DCMAKE_TOOLCHAIN_FILE\u003d/Users/gangmini/Library/Android/sdk/ndk/21.4.7075529/build/cmake/android.toolchain.cmake\n-DCMAKE_MAKE_PROGRAM\u003d/Users/gangmini/Library/Android/sdk/cmake/3.18.1/bin/ninja\n-DCMAKE_LIBRARY_OUTPUT_DIRECTORY\u003d/Users/gangmini/AndroidStudioProjects/PHODO/opencv/build/intermediates/cxx/Debug/e25461y3/obj/armeabi-v7a\n-DCMAKE_RUNTIME_OUTPUT_DIRECTORY\u003d/Users/gangmini/AndroidStudioProjects/PHODO/opencv/build/intermediates/cxx/Debug/e25461y3/obj/armeabi-v7a\n-DCMAKE_BUILD_TYPE\u003dDebug\n-B/Users/gangmini/AndroidStudioProjects/PHODO/opencv/.cxx/Debug/e25461y3/armeabi-v7a\n-GNinja\n-DANDROID_STL\u003dc++_shared\njvmArgs : \n\n",
+    "file_": "/Users/gangmini/AndroidStudioProjects/PHODO/opencv/libcxx_helper/CMakeLists.txt",
+    "tag_": "debug|armeabi-v7a",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": -1523801237
+  },
+  {
+    "level_": 0,
+    "message_": "Exiting generation of /Users/gangmini/AndroidStudioProjects/PHODO/opencv/.cxx/Debug/e25461y3/armeabi-v7a/compile_commands.json.bin normally",
+    "file_": "/Users/gangmini/AndroidStudioProjects/PHODO/opencv/libcxx_helper/CMakeLists.txt",
+    "tag_": "debug|armeabi-v7a",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 385324269
+  },
+  {
+    "level_": 0,
+    "message_": "done executing cmake",
+    "file_": "/Users/gangmini/AndroidStudioProjects/PHODO/opencv/libcxx_helper/CMakeLists.txt",
+    "tag_": "debug|armeabi-v7a",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 952954611
+  },
+  {
+    "level_": 0,
+    "message_": "write command file /Users/gangmini/AndroidStudioProjects/PHODO/opencv/.cxx/Debug/e25461y3/armeabi-v7a/metadata_generation_command.txt",
+    "file_": "/Users/gangmini/AndroidStudioProjects/PHODO/opencv/libcxx_helper/CMakeLists.txt",
+    "tag_": "debug|armeabi-v7a",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": 2109275111
+  },
+  {
+    "level_": 0,
+    "message_": "JSON generation completed without problems",
+    "file_": "/Users/gangmini/AndroidStudioProjects/PHODO/opencv/libcxx_helper/CMakeLists.txt",
+    "tag_": "debug|armeabi-v7a",
+    "diagnosticCode_": 0,
+    "memoizedIsInitialized": 1,
+    "unknownFields": {
+      "fields": {},
+      "fieldsDescending": {}
+    },
+    "memoizedSize": -1,
+    "memoizedHashCode": -1403939601
+  }
+]
