@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">PHODO</string>
+    <string name="title_activity_camera_home">CameraHomeActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_camera">Camera</string>
+    <string name="menu_my_photo_guide">PhotoGuide</string>
+    <string name="menu_bookmark">BookMark</string>
+    <string name="server_client_id">299659208274-ug1dosb34r1c33cl64gc60h855k399mu.apps.googleusercontent.com</string>
+
+    
+</resources>
