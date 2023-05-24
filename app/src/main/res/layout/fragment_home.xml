@@ -5,19 +5,72 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.home.HomeFragment">
-
-
-    <SurfaceView
-        android:id="@+id/surfaceView"
+    tools:context=".ui.home.CameraFragment">
+<!--
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="0.25" />
+        android:layout_height="wrap_content">
+    </androidx.appcompat.widget.Toolbar>-->
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="0.75"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        android:layout_weight="0.35">
+        <TextureView
+            android:id="@+id/textureView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </TextureView>
+
+        <ImageView
+            android:id="@+id/filter_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="fitCenter"
+            android:alpha="0.5"/>
+
+        <FrameLayout
+            android:id="@+id/seek_container"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_gravity = "center_horizontal|bottom"
+            android:layout_marginBottom="5dp">
+
+            <SeekBar
+                android:id="@+id/landsacpe_seekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="100"
+                android:progress="50"
+                android:gravity ="top"/>
+
+            <SeekBar
+                android:id="@+id/people_seekBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="100"
+                android:progress="50"
+                android:layout_marginTop="30dp"/>
+
+        </FrameLayout>
+
+        <ImageButton
+            android:id="@+id/filter_delete_btn"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/cancel_48px" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.65"
         android:background="@color/baby_purple">
 
         <androidx.appcompat.widget.AppCompatButton
@@ -25,26 +78,72 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_gravity="center"
-            android:background="@drawable/camera_button" />
+            android:layout_marginTop="10dp"
+            android:background="@drawable/custom_camera_button" />
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/circle_iv"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:id="@+id/circle_gallery"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
             android:layout_gravity="center_vertical|left"
             android:layout_marginLeft="40dp"
+            android:layout_marginTop="15dp"
             android:background="@android:color/transparent"
-            android:src="@drawable/dessert"
+            android:src="@drawable/sample_dessert"
             app:civ_border_overlay="true" />
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_gravity="center_vertical|right"
+            android:layout_marginTop="15dp"
             android:layout_marginRight="40dp"
-            android:src="@drawable/photo_guide" />
+            android:src="@drawable/ic_photo_guide" />
+
+
+        <FrameLayout
+            android:id="@+id/filter_btn_container"
+            android:layout_width="150dp"
+            android:layout_height="30dp"
+            android:layout_gravity = "center_horizontal"
+            android:layout_marginTop="20dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/circle_landscape"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/landscape_48px"
+                android:layout_gravity = "left"
+                app:civ_border_overlay="true"
+                app:civ_border_width="2dp"
+                app:civ_border_color="#ffffff"/>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/circle_people"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity = "center"
+                android:src="@drawable/people_group_48px"
+                app:civ_border_overlay="true"
+                app:civ_border_width="2dp"
+                app:civ_border_color="#ffffff"/>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/circle_contour"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity = "right"
+                android:src="@drawable/polyline_48px"
+                app:civ_border_overlay="true"
+                app:civ_border_width="2dp"
+                app:civ_border_color="#ffffff"/>
+
+        </FrameLayout>
+
 
 
     </FrameLayout>
+
+
 </LinearLayout>

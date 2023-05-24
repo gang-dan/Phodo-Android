@@ -1,26 +1,64 @@
 package com.example.phodo.PhotoGuide
 
-import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
 import android.location.Location
-import android.net.Uri
-import android.os.Parcel
 import android.os.Parcelable
-import org.json.JSONArray
-import java.io.Serializable
-import kotlin.properties.Delegates
+import kotlinx.parcelize.Parcelize
 
+
+@Parcelize
 data class PhotoGuideItem (
 
-    private var photoGuideId : Int,
-    var photo : Int,
-    var jsonData : String
+    val photoGuideId : Int,
+    val photo : Int, // bitmap 타입으로 변경 //oriPhoto
+    val jsonData : String, //contourList로 변경
+    val location : Location,
+    val locationName : String
+    //val mask
+    //val proceessingImg
+    //like
 
-) : Serializable
+) : Parcelable
+
 
     //var contourArray : JSONArray
 
     //lateinit var maskImage : Uri
     //var tagArray =  emptyArray<String>()
     //var numberOfLike by Delegates.notNull<Int>()
-    //lateinit var location : Location 
+    //
+/*
+
+data class PhotoGuideItem(val photoGuideId: Int, val photo: Int, val jsonData: String?, val location: Location?, val location_name : String?) : Parcelable {
+    constructor(parcel: Parcel) : this(
+        parcel.readInt(),
+        parcel.readInt(),
+        parcel.readString(),
+        parcel.readParcelable(Location::class.java.classLoader),
+        parcel.readString()
+    )
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(photoGuideId)
+        parcel.writeInt(photo)
+        parcel.writeString(jsonData)
+        parcel.writeParcelable(location,-1)
+        parcel.writeString(location_name)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<PhotoGuideItem> {
+        override fun createFromParcel(parcel: Parcel): PhotoGuideItem {
+            return PhotoGuideItem(parcel)
+        }
+
+        override fun newArray(size: Int): Array<PhotoGuideItem?> {
+            return arrayOfNulls(size)
+        }
+    }
+}
+
+ */
+

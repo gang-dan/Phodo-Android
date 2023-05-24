@@ -42,7 +42,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:clickable="true"
-        android:src="@drawable/baseline_location_on_24"
+        android:src="@drawable/baseline_location_on_40"
         app:backgroundTint="@color/white"
         app:fabSize="normal"
         app:tint="@color/purple" />

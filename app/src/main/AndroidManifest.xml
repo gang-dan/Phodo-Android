@@ -3,8 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.phodo">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET" />
+
 
     <application
         android:allowBackup="true"
@@ -14,11 +21,12 @@
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:usesCleartextTraffic="true"
         android:supportsRtl="true"
         android:theme="@style/Theme.PHODO"
         tools:targetApi="31">
         <activity
-            android:name=".CameraHomeActivity"
+            android:name=".HomeActivity"
             android:exported="true"
             android:label="@string/title_activity_camera_home"
             android:theme="@style/Theme.PHODO.NoActionBar">
@@ -38,13 +46,18 @@
             android:name=".PhotoGuide.PhotoGuideDetail"
             android:exported="true"
             android:theme="@style/Theme.PHODO.NoActionBar">
-
+        </activity>
+        <activity
+            android:name=".PhotoMap.MapActivity"
+            android:exported="true"
+            android:theme="@style/Theme.PHODO.NoActionBar">
         </activity>
         <activity
             android:name=".MainActivity"
             android:exported="true">
-
         </activity>
+
+        <meta-data android:name="com.kakao.sdk.AppKey" android:value="d01aba9b8c8393addd5cbf36ea1f607c"/>
     </application>
 
 </manifest>

@@ -8,12 +8,12 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.example.phodo.R
+import kotlinx.coroutines.flow.flowOf
 import org.json.JSONObject
 import org.opencv.android.OpenCVLoader
 import org.opencv.android.Utils
 import org.opencv.core.*
 import org.opencv.imgproc.Imgproc
-import java.util.ArrayList
 
 
 class PhotoGuideDetailViewModel(application: Application) : AndroidViewModel(application) {
@@ -55,14 +55,48 @@ class PhotoGuideDetailViewModel(application: Application) : AndroidViewModel(app
         Log.d("mask","${contours}")
 
  */
+        /*
+        val newWidth = 480
+        val newHeight = 640
+
+        val options = BitmapFactory.Options().apply {
+            inJustDecodeBounds = true
+            BitmapFactory.decodeResource(context.resources, R.drawable.sample_colo_ori3, this)
+        }
+
+        // 이미지 크기 계산
+        val widthRatio = options.outWidth.toFloat() / newWidth.toFloat()
+        val heightRatio = options.outHeight.toFloat() / newHeight.toFloat()
+        val sampleSize = Math.max(widthRatio, heightRatio).toInt()
+
+        // BitmapFactory.Options 객체 업데이트
+        options.apply {
+            inJustDecodeBounds = false
+            inSampleSize = sampleSize
+        }
+
+        // 새로운 크기로 이미지 변환
+        val bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.sample_colo_ori3, options)
+        val scaledBitmap = Bitmap.createScaledBitmap(bitmap, newWidth, newHeight, false)
+
+         */
+
         val ori_picture: Bitmap =
-            BitmapFactory.decodeResource(context.resources, R.drawable.sample_colo)
+            BitmapFactory.decodeResource(context.resources, R.drawable.sample_colo_ori3)
         val ori_src = Mat()
+        Utils.bitmapToMat(ori_picture, ori_src)
+
+        val resized_img = Mat()
+        Imgproc.resize(ori_src, resized_img, Size(1080.0, 1440.0), 0.0, 0.0, Imgproc.INTER_AREA)
 
         val contoursList = ArrayList<MatOfPoint>()
         val jsonObject = JSONObject(selected_obj_item.jsonData)
 
-        //Log.d("jsonArray","${jsonArray}")
+
+        val  w = ori_picture.width.toDouble()
+        val  h = ori_picture.height.toDouble()
+        Log.d("test","w : ${w}, h : ${h}")
+
         for (i in 0 until jsonObject.length()) {
             val jsonArray = jsonObject.getJSONArray("${i}")
             val points = arrayOfNulls<Point>(jsonArray.length())
@@ -78,29 +112,23 @@ class PhotoGuideDetailViewModel(application: Application) : AndroidViewModel(app
         }
 
       for (contourIdx in contoursList.indices) {
-            Log.d("contourIdx","${contourIdx}")
+            //Log.d("contourIdx","${contourIdx}")
                 Imgproc.drawContours(
-                    ori_src,
+                    resized_img,
                     contoursList,
                     contourIdx,
                     Scalar(255.0, 255.0, 255.0),
-                    20
+                    5
                 )
 
         }
 
-        val resizeImage = Mat()
-        val sz = Size(600.0, 1000.0) // Scale up to 800x600
-        Imgproc.resize(ori_src, resizeImage, sz)
-        Log.d("resizeImage", "${resizeImage}")
-
-
         val tempBmp1 = Bitmap.createBitmap(
-            600, 1000,
+            resized_img.width(), resized_img.height(),
             Bitmap.Config.ARGB_8888
         )
 
-        Utils.matToBitmap(resizeImage, tempBmp1)
+        Utils.matToBitmap(resized_img, tempBmp1)
         bit_img = tempBmp1
 
 
