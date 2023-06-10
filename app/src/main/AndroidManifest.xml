@@ -53,6 +53,11 @@
             android:theme="@style/Theme.PHODO.NoActionBar">
         </activity>
         <activity
+            android:name=".photoMaker.PhotoMaker"
+            android:exported="true"
+            android:theme="@style/Theme.PHODO.NoActionBar">
+        </activity>
+        <activity
             android:name=".MainActivity"
             android:exported="true">
         </activity>

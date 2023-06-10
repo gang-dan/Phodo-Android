@@ -11,6 +11,12 @@ class PreferenceUtil(context: Context) {
     val accessToken: String
         get() = prefs.getString("access_token", "").toString()
 
+    val isMember: String
+        get() = prefs.getBoolean("is_member", false).toString()
+
+    val userId: String
+        get() = prefs.getInt("user_id", -1).toString()
+
     val userName: String
         get() = prefs.getString("user_name", "").toString()
 
@@ -31,16 +37,27 @@ class PreferenceUtil(context: Context) {
         prefs.edit().putString("access_token", str).apply()
     }
 
-    fun setUserInfo(userName: String,userEmail : String, userProfileImg : String) {
+    fun setAccessTokenExpTime(str: String) {
+        prefs.edit().putString("accessToken_expireTime", str).apply()
+    }
+    fun setRefreshToken(str: String) {
+        prefs.edit().putString("refresh_token", str).apply()
+    }
+    fun setRefreshTokenExpTime(str: String) {
+        prefs.edit().putString("refreshToken_expireTime", str).apply()
+    }
+
+    fun setUserInfo(isMember:Boolean, userId: Int, userName: String, userEmail : String, userProfileImg : String) {
+        prefs.edit().putBoolean("is_member", isMember).apply()
+        prefs.edit().putInt("user_id", userId).apply()
         prefs.edit().putString("user_name", userName).apply()
         prefs.edit().putString("user_email", userEmail).apply()
         prefs.edit().putString("user_profile_img", userProfileImg).apply()
     }
 
-
     fun deleteAccessToken() {
         prefs.edit()?.apply {
-            remove("accessToken")
+            remove("access_token")
         }?.apply()
     }
 

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/eclipse"
+        app:layout_constraintStart_toStartOf="@+id/eclipse"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="10dp">
+
+        <LinearLayout
+            android:id="@+id/tag_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <ImageView
+        android:id="@+id/eclipse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="148dp"
+        android:background="@drawable/eclipse"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:background="@drawable/baseline_location_on_40"
+        android:backgroundTint="@color/purple"
+        app:layout_constraintBottom_toTopOf="@+id/eclipse"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="이탈리아, 트레비 분수 광장"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteX="184dp" />
+
+    <android.widget.Button
+        android:id="@+id/save_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:text="저장하기"
+        android:textSize="10dp"
+        android:elevation="3dp"
+        android:background="@drawable/custom_button_box"
+        app:layout_constraintBottom_toTopOf="@+id/textView4"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="25dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

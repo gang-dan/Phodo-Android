@@ -1,8 +1,8 @@
 package com.example.phodo.ui.home
 
 import android.Manifest
-import android.Manifest.permission.ACCESS_FINE_LOCATION
-import android.Manifest.permission.READ_EXTERNAL_STORAGE
+import android.annotation.SuppressLint
+import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -14,22 +14,32 @@ import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.provider.MediaStore
 import android.util.Log
 import android.util.Rational
 import android.util.Size
 import android.view.*
+import android.widget.SeekBar
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.phodo.HomeActivity
-import com.example.phodo.HomeViewModel
+import com.example.phodo.*
 import com.example.phodo.PhotoGuide.PhotoGuideList
+import com.example.phodo.photoMaker.PhotoMaker
 import com.example.phodo.databinding.FragmentHomeBinding
+import com.example.phodo.dto.PhotoGuideItemDTO
+import com.example.phodo.ui.gallery.GalleryViewModel
+import org.opencv.android.OpenCVLoader
 import java.io.*
+import java.net.URI
 
 //import com.sun.tools.javac.resources.ct
 
@@ -37,7 +47,13 @@ import java.io.*
 class CameraFragment : Fragment() {
 
     private lateinit var frag_home_binding : FragmentHomeBinding
-    private val viewmodel  by activityViewModels<HomeViewModel> ()
+    //private val viewmodel  by activityViewModels<HomeViewModel> ()
+
+   //private val viewModel : PhotoGuideListViewModel by viewModels { ViewModelFactory() }
+    //val viewmodel = ViewModelProvider().get(CameraViewModel::class.java)
+    //val viewmodel: CameraViewModel by viewModels()
+
+    //var viewmodel : HomeViewModel by viewModels { ViewModelFactory(requireContext()) }
 
     lateinit var homeActivity: HomeActivity
     private var cameraDevice : CameraDevice? = null
@@ -48,29 +64,94 @@ class CameraFragment : Fragment() {
     lateinit var surface : Surface
     lateinit var cameraCaptureSessions : CameraCaptureSession
     lateinit var captureRequestBuilder :CaptureRequest.Builder
-    var fileCount = 0
+
+    //var photoGuide = MutableLiveData<PhotoGuideItemDTO>()
+    //var isPhootGuide = false
 
 
+    @SuppressLint("Range")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         frag_home_binding = FragmentHomeBinding.inflate(layoutInflater)
         val view = frag_home_binding.root
 
+
+        homeActivity = context as HomeActivity
+
         frag_home_binding.textureView.surfaceTextureListener = textureListener
 
+        val parent = requireActivity() as HomeActivity
+
+
+        frag_home_binding.progressBar.isVisible = false
+
+
+        parent.viewModel.isLandBtn.observe(viewLifecycleOwner, Observer {
+            frag_home_binding.landsacpeSeekBar.isVisible = it == true
+            frag_home_binding.landsacpeSeekBar.isVisible = it == false
+        })
+
+        parent.viewModel.isPeopleBtn.observe(viewLifecycleOwner, Observer {
+            frag_home_binding.peopleSeekBar.isVisible = it == true
+            frag_home_binding.peopleSeekBar.isVisible = it == false
+        })
+
+        parent.viewModel.isContourBtn.observe(viewLifecycleOwner, Observer {
+            frag_home_binding.filterImgCpntour.isVisible = it == true
+            frag_home_binding.filterImgCpntour.isVisible = it == false
+        })
+
+        parent.viewModel.resultLandImage.observe(viewLifecycleOwner, Observer {
+            frag_home_binding.progressBar.isVisible = true
+            frag_home_binding.filterImgLand.alpha = 127.0F
+            frag_home_binding.filterImgLand.setImageBitmap(it)
+
+        })
+
+        parent.viewModel.resultPeopleImage.observe(viewLifecycleOwner, Observer {
+            frag_home_binding.progressBar.isVisible = true
+            frag_home_binding.filterImgPeople.alpha = 127.0F
+            frag_home_binding.filterImgPeople.setImageBitmap(it)
+
+        })
+
+        parent.viewModel.resultContourImage.observe(viewLifecycleOwner, Observer {
+            frag_home_binding.filterImgCpntour.setImageBitmap(it)
+            frag_home_binding.progressBar.isVisible = false
+
+        })
+
+
         // 필터 적용시 조절 버튼
-        viewmodel.isPhootGuide.observe(viewLifecycleOwner){
+        parent.viewModel.isPhootGuide.observe(homeActivity){
             if (it == true) {
-                frag_home_binding.filterImage.setImageResource(viewmodel.photoGuide.value!!.photo)
+                parent.viewModel.loadImg(homeActivity)
+                //parent.viewModel.setMaskImg() // 인물, 배경 분리 이미지 세팅
+                //parent.viewModel.setContourImg()
+                //viewmodel.setContourImg(homeActivity)
+                frag_home_binding.progressBar.isVisible = true
+
                 frag_home_binding.seekContainer.isVisible = true
                 frag_home_binding.filterBtnContainer.isVisible = true
                 frag_home_binding.filterDeleteBtn.isVisible = true
+
+                parent.viewModel.isLandBtn.value = true
+                parent.viewModel.isPeopleBtn.value = true
+                parent.viewModel.isContourBtn.value = true
+
+                frag_home_binding.landsacpeSeekBar.setOnSeekBarChangeListener(seekbarListener)
+                frag_home_binding.peopleSeekBar.setOnSeekBarChangeListener(seekbarListener)
+
             }else {
-                frag_home_binding.filterImage.setImageResource(0)
+                frag_home_binding.filterImgLand.setImageResource(0)
+                frag_home_binding.filterImgPeople.setImageResource(0)
+                frag_home_binding.filterImgCpntour.setImageResource(0)
+
                 frag_home_binding.seekContainer.isVisible = false
                 frag_home_binding.filterBtnContainer.isVisible = false
                 frag_home_binding.filterDeleteBtn.isVisible = false
             }
         }
+
 
 
         // 사진촬영 버튼
@@ -81,6 +162,13 @@ class CameraFragment : Fragment() {
         // 갤러리 버튼
         frag_home_binding.circleGallery.setOnClickListener {
 
+            val intent1 = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            intent1.type = "image/*"
+            //intent.action = Intent.ACTION_GET_CONTENT
+            startActivityForResult(intent1, RESULT_OK)
+
+            //val intent = Intent(context, PhotoMaker::class.java)
+            //startActivity(intent)
         }
 
         // 포토가이드 리스트 화면 이동
@@ -91,16 +179,44 @@ class CameraFragment : Fragment() {
 
         // 포토가이드 적용 삭제 버튼
         frag_home_binding.filterDeleteBtn.setOnClickListener {
-            viewmodel.isPhootGuide.value = false
+            parent.viewModel.isPhootGuide.value = false
         }
 
-        val homeViewModel = ViewModelProvider(this).get(CameraViewModel::class.java)
+        frag_home_binding.circleLandscapeBtn.setOnClickListener {
+            parent.viewModel.isLandBtn.value = !(parent.viewModel.isLandBtn.value!!)
+        }
+        frag_home_binding.circlePeopleBtn.setOnClickListener {
+            parent.viewModel.isPeopleBtn.value = !(parent.viewModel.isPeopleBtn.value!!)
+        }
+        frag_home_binding.circleContourBtn.setOnClickListener {
+            parent.viewModel.isContourBtn.value = !(parent.viewModel.isContourBtn.value!!)
+        }
+
+
+
         return view
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        closeCamera()
+
+    private var seekbarListener  = object  : SeekBar.OnSeekBarChangeListener {
+        override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
+            when (p0!!.id) {
+                R.id.landsacpe_seekBar -> {
+                    frag_home_binding.filterImgLand.alpha = p1.toFloat() / 255.0f
+                }
+
+                R.id.people_seekBar -> {
+                    //viewmodel.setPhotoGuideMaskImg(homeActivity,"people",p0.progress)
+                    frag_home_binding.filterImgPeople.alpha = p1.toFloat() / 255.0f
+                }
+            }
+        }
+
+        override fun onStartTrackingTouch(p0: SeekBar?) {
+        }
+
+        override fun onStopTrackingTouch(p0: SeekBar?) {
+        }
 
     }
 
@@ -123,15 +239,13 @@ class CameraFragment : Fragment() {
 
     }
 
+
     // openCamera() 메서드는 TextureListener 에서 SurfaceTexture 가 사용 가능하다고 판단했을 시 실행된다
     private fun openCamera() {
-        Log.e("camera", "openCamera() : openCamera()메서드가 호출되었음")
-
         // 카메라의 정보를 가져와서 cameraId 와 imageDimension 에 값을 할당하고, 카메라를 열어야 하기 때문에
         // CameraManager 객체를 가져온다
-        homeActivity = context as HomeActivity
-        val manager = homeActivity.getSystemService(Context.CAMERA_SERVICE) as CameraManager
 
+        val manager = homeActivity.getSystemService(Context.CAMERA_SERVICE) as CameraManager
 
         try {
             // CameraManager 에서 cameraIdList 의 값을 가져온다
@@ -177,7 +291,6 @@ class CameraFragment : Fragment() {
                 layoutParams.height = bestSize.height
                 frag_home_binding.textureView.layoutParams = layoutParams
             }
-
              */
 
 
@@ -336,8 +449,10 @@ class CameraFragment : Fragment() {
             captureBuilder.set(CaptureRequest.JPEG_ORIENTATION,getJpegOrientation(characteristics,rotation)) //ORIENTATIONS.get(rotation)
 
             val storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) //DIRECTORY_DCIM
-            var file = File(storageDir.toString() + "/pic${fileCount}.jpg")
-            Log.d("camera","${storageDir.toString()}")
+            val fileName = System.currentTimeMillis().toString()
+            var file = File(storageDir.toString() + "/${fileName}.jpg")
+
+
             val readerListener = object : ImageReader.OnImageAvailableListener {
                 override fun onImageAvailable(reader: ImageReader?) {
                     var image : Image? = null
@@ -351,21 +466,6 @@ class CameraFragment : Fragment() {
 
                         val flippedBytes = ByteArray(bytes.size)
                         Log.d("camera","${bytes.size}")
-
-                        /*
-                        val width = image.width
-                        val height = image.height
-                        for (row in 0 .. height) {
-                            for (col in 0 .. width) {
-                                val flippedRow = height - row - 1 //
-                                val flippedCol = width - col - 1
-                                val srcOffset = (flippedRow * width + col) * 3 // 이미지의 픽셀 크기에 따라 조정할 수 있음
-                                val destOffset = (row * width + col) * 3 // 이미지의 픽셀 크기에 따라 조정할 수 있음
-                                System.arraycopy(bytes, srcOffset, flippedBytes, destOffset, 3)
-                            }
-                        }
-
-                         */
 
 
                         var output: OutputStream? = null
@@ -389,14 +489,6 @@ class CameraFragment : Fragment() {
                             MediaScannerConnection.scanFile(context, arrayOf(file.path), null, null)
                             Log.d("camera","사진 촬영 성공!!")
 
-
-                            // 90도 돌아간 비트맵을 이미지뷰에 set 해준다
-                            //img_previewImage.setImageBitmap(rotatedBitmap)
-
-                            // 리사이클러뷰 갤러리로 보내줄 uriList 에 찍은 사진의 uri 를 넣어준다
-                            //uriList.add(0, uri.toString())
-
-                            fileCount++ //사용자 갤러리의 마지막 인덱스 가져옴
                         }
 
                     } catch (e: FileNotFoundException) {
@@ -407,6 +499,7 @@ class CameraFragment : Fragment() {
                         image?.close()
                     }
                 }
+
 
             }
 
@@ -442,6 +535,68 @@ class CameraFragment : Fragment() {
         }
     }
 
+
+    // 카메라 객체를 시스템에 반환하는 메서드
+    // 카메라는 싱글톤 객체이므로 사용이 끝나면 무조건 시스템에 반환해줘야한다
+    // 그래야 다른 앱이 카메라를 사용할 수 있다
+    private fun closeCamera() {
+        if (null != cameraDevice) {
+            cameraDevice!!.close()
+            cameraDevice = null
+        }
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+        if (requestCode == RESULT_OK) {
+
+            if (resultCode == RESULT_OK) {
+                try {
+                    val selected_gallery_img = data!!.data
+
+                    // 포토메이커 액티비티 실행
+                    val intent = Intent(context, PhotoMaker::class.java)
+                    intent.putExtra("photo_obj", selected_gallery_img.toString())
+                    startActivity(intent)
+
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+        }
+    }
+
+
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int, // requestPermissions() 에서 전달하는 requestCode 값 -> 이 코드에 따라 분기
+        permissions: Array<out String>, // 확인할 권한들
+        grantResults: IntArray  // 허용 or 거부 값
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        for (r1 in grantResults) {
+            if (r1 == PackageManager.PERMISSION_DENIED) {
+
+                // 권한 거절 (다시 한 번 물어봄)
+                val builder = AlertDialog.Builder(homeActivity)
+                builder.setMessage("카메라를 사용하시려면 카메라 사용 권한을 허용해주세요.")
+                builder.setPositiveButton("확인") { dialog, which ->
+                    ActivityCompat.requestPermissions(homeActivity, arrayOf(Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE),100)
+                }
+                builder.setNegativeButton("취소") { dialog, which ->
+
+                }
+                builder.show()
+            }
+
+        }
+
+    }
+
     private fun getJpegOrientation(cameraCharacteristics: CameraCharacteristics, deviceOrientation: Int): Int {
         val sensorOrientation = cameraCharacteristics.get(CameraCharacteristics.SENSOR_ORIENTATION)
         val (isFrontFacing, degrees) = when (deviceOrientation) {
@@ -461,67 +616,10 @@ class CameraFragment : Fragment() {
     }
 
 
-
-    // 카메라 객체를 시스템에 반환하는 메서드
-    // 카메라는 싱글톤 객체이므로 사용이 끝나면 무조건 시스템에 반환해줘야한다
-    // 그래야 다른 앱이 카메라를 사용할 수 있다
-    private fun closeCamera() {
-        if (null != cameraDevice) {
-            cameraDevice!!.close()
-            cameraDevice = null
-        }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        closeCamera()
     }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int, // requestPermissions() 에서 전달하는 requestCode 값 -> 이 코드에 따라 분기
-        permissions: Array<out String>, // 확인할 권한들
-        grantResults: IntArray  // 허용 or 거부 값
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
-        /*
-        for (r1 in grantResults) {
-            if (r1 == PackageManager.PERMISSION_DENIED) {
-                return
-                }
-
-            }
-
-         */
-        for (r1 in grantResults) {
-            if (r1 == PackageManager.PERMISSION_DENIED) {
-
-                // 권한 거절 (다시 한 번 물어봄)
-                val builder = AlertDialog.Builder(homeActivity)
-                builder.setMessage("카메라를 사용하시려면 카메라 사용 권한을 허용해주세요.")
-                builder.setPositiveButton("확인") { dialog, which ->
-                    ActivityCompat.requestPermissions(homeActivity, arrayOf(Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE),100)
-                }
-                builder.setNegativeButton("취소") { dialog, which ->
-
-                }
-                builder.show()
-            }
-
-        }
-
-        }
-
-    private fun adjustTransparency(bitmap: Bitmap, alpha: Int): Bitmap? {
-        val transparentBitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true)
-        val width = transparentBitmap.width
-        val height = transparentBitmap.height
-        for (x in 0 until width) {
-            for (y in 0 until height) {
-                val color = transparentBitmap.getPixel(x, y)
-                val modifiedColor =
-                    Color.argb(alpha, Color.red(color), Color.green(color), Color.blue(color))
-                transparentBitmap.setPixel(x, y, modifiedColor)
-            }
-        }
-        return transparentBitmap
-    }
-
 
 }
 

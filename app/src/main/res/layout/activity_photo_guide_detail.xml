@@ -28,8 +28,8 @@
         android:layout_height="50dp"
         android:layout_gravity="right|bottom"
         android:layout_marginRight="14dp"
-        android:layout_marginBottom="250dp"
-        android:elevation="10dp"
+        android:layout_marginBottom="180dp"
+        android:elevation="20dp"
         android:background="@drawable/baseline_location_on_40" />
 
     <android.widget.Button
@@ -38,8 +38,8 @@
         android:layout_height="50dp"
         android:layout_gravity="right|bottom"
         android:layout_marginRight="11dp"
-        android:layout_marginBottom="180dp"
-        android:elevation="10dp"
+        android:layout_marginBottom="100dp"
+        android:elevation="20dp"
         android:background="@drawable/ic_favorite_48px" />
 
     <Button
@@ -66,8 +66,26 @@
         android:text="apply this guide"
         android:textColor="@color/white"
         android:textSize="10dp"
-
         android:background="@drawable/custom_tag_box"/>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:layout_marginBottom="5dp"
+        android:layout_marginStart="20dp">
+
+        <LinearLayout
+            android:id="@+id/tag_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+        </LinearLayout>
+    </ScrollView>
+
+
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -24,16 +24,18 @@
             android:layout_height="match_parent">
         </net.daum.mf.map.api.MapView>
 
-<!--
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floatingActionButton"
-            android:layout_width="76dp"
+            android:id="@+id/currentSearch_btn"
+            android:layout_width="60dp"
             android:layout_height="60dp"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_gravity="left|bottom"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="16dp"
-            android:clickable="true" />-->
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="9dp"
+            android:clickable="true"
+            android:backgroundTint="@color/baby_purple"
+            android:src="@drawable/ic_research_48px"/>
     </RelativeLayout>
 
 

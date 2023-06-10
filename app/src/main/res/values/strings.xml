@@ -11,7 +11,8 @@
     <string name="menu_camera">Camera</string>
     <string name="menu_my_photo_guide">PhotoGuide</string>
     <string name="menu_bookmark">BookMark</string>
-    <string name="server_client_id">299659208274-ug1dosb34r1c33cl64gc60h855k399mu.apps.googleusercontent.com</string>
+    <string name="server_client_id">214501978899-i8eb4aol6gb0r3cuau2iq4i8sdgoqdrp.apps.googleusercontent.com</string>
+    <string name="server_client_scret">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</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

@@ -1,20 +1,24 @@
 package com.example.phodo.PhotoGuide
 
+import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.phodo.R
-import com.example.phodo.Repository.PhotoGuideRepository
 import com.example.phodo.databinding.GuideRowBinding
-import java.io.Serializable
+import com.example.phodo.dto.PhotoGuideItemDTO
+import com.example.phodo.dto.PhotoGuidesDTO
+import com.squareup.picasso.Picasso
+import retrofit2.http.Url
+import java.net.URI
+import java.net.URL
 
 
-class PhotoGuideAdapter(val onSelectitem: (guide_item: PhotoGuideItem) -> Unit
+class PhotoGuideAdapter(private var photoguideList: List<PhotoGuidesDTO>,val onSelectitem: (guide_item: PhotoGuidesDTO) -> Unit //private var photoguideList: List<PhotoGuidesDTO>,
 ) :
 
     RecyclerView.Adapter<PhotoGuideAdapter.PhotoGuideViewHolder>() {
-
-    private var photoguideList = emptyList<PhotoGuideItem>()
 
     class PhotoGuideViewHolder(val guide_binding: GuideRowBinding) :
         RecyclerView.ViewHolder(guide_binding.root) { //아이템을 만들때 여러 뷰가있기때문에 itemTodobinding으로 가져온다.
@@ -22,16 +26,17 @@ class PhotoGuideAdapter(val onSelectitem: (guide_item: PhotoGuideItem) -> Unit
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): PhotoGuideViewHolder {
-        val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.guide_row, viewGroup, false) //내가 각아이템에 사용하는 view
+        val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.guide_row, viewGroup, false) //내가 각아이템에 사용하는 view
 
         return PhotoGuideViewHolder(GuideRowBinding.bind(view))
     }
 
     override fun onBindViewHolder(guideViewHolder: PhotoGuideViewHolder, position: Int) {//item을 화면에 표시해주는
 
-        //레포에 요청하는 부분??....
-        guideViewHolder.guide_binding.imageView.setImageResource(photoguideList[position].photo)
+        Picasso.get()
+            .load(photoguideList[position].photo)
+            .into(guideViewHolder.guide_binding.imageView)
+
 
         val item = photoguideList[position]
 
@@ -45,14 +50,10 @@ class PhotoGuideAdapter(val onSelectitem: (guide_item: PhotoGuideItem) -> Unit
     override fun getItemCount() = photoguideList.size
 
     // 새로 업데이트된 포토가이드객체 리스트를 세팅하고 리사이클러뷰에 표시
-    fun setData(newList:List<PhotoGuideItem>){
-        photoguideList = newList
+    fun setData(newList:List<PhotoGuidesDTO>){
+        //photoguideList = newList as ArrayList<PhotoGuidesDTO>
         //notifyDataSetChanged()
     }
-
-
-
-
 
 
 }

@@ -2,14 +2,19 @@ package com.example.phodo.PhotoGuide
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.phodo.*
 import com.example.phodo.PhotoMap.MapActivity
+import com.example.phodo.Repository.PhotoGuideRepository
 import com.example.phodo.databinding.ActivityPhotoGuideListBinding
+import com.example.phodo.dto.PhotoGuidesDTO
 
 import java.io.Serializable
 
@@ -17,8 +22,7 @@ import java.io.Serializable
 class PhotoGuideList : AppCompatActivity() {
 
     private lateinit var guide_list_binding: ActivityPhotoGuideListBinding
-    //private lateinit var rowBinding: GuideRowBinding
-    private val viewModel: PhotoGuideListViewModel by viewModels()
+    private val viewModel : PhotoGuideListViewModel by viewModels { ViewModelFactory(this) }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,9 +40,17 @@ class PhotoGuideList : AppCompatActivity() {
 
         guide_list_binding.recycler1.layoutManager = GridLayoutManager(this,3)
 
-        viewModel.getPhodoGiudeList(this) //뷰모델에 데이터 처리 요청 //어댑터 처음 설정
-
         /*무한스크롤이나 refresh 구현시 viewmodel.getPhoGuideList 하도록 해야함*/
+        viewModel.getPhodoGiudeList()
+
+
+        viewModel.guideLiveData.observe(this, Observer { //viewmodel에서 만든 변경관찰 가능한todoLiveData를 가져온다.
+            setAdapter() //setData함수는 TodoAdapter에서 추가하겠습니다.
+
+        })
+
+
+        /*
 
         //getPhodoGiudeList() 호출시 guideLiveData에 변화가 생기면서 어댑터도 동작
         //guideLiveData(포토가이드리스트)가 업데이트되면 리사이클러뷰 어댑터에 알려서 다시 홀드
@@ -47,14 +59,8 @@ class PhotoGuideList : AppCompatActivity() {
 
         })
 
+         */
 
-        // 리스트 아이템 선택
-        guide_list_binding.recycler1.adapter = PhotoGuideAdapter(
-            onSelectitem = {
-                val intent = Intent(this, PhotoGuideDetail::class.java)
-                intent.putExtra("selected_guide_item", it) // parcel 클래스 대신 Serializable 클래스로 객체 전달
-                startActivity(intent)
-            })
 
         // 지도뷰로 이동
         guide_list_binding.floatingActionButton.setOnClickListener {
@@ -65,15 +71,16 @@ class PhotoGuideList : AppCompatActivity() {
         }
 
     }
-/*
-
-        //툴바 옵션은 필터링 기능
-
-
+    fun setAdapter() {
+        // 리스트 아이템 선택
+        guide_list_binding.recycler1.adapter = PhotoGuideAdapter(
+            viewModel.guideLiveData.value!!,
+            onSelectitem = {
+                val intent = Intent(this, PhotoGuideDetail::class.java)
+                intent.putExtra("selected_guide_item", it) // parcel 클래스 대신 Serializable 클래스로 객체 전달
+                startActivity(intent)
+            })
     }
-
-*/
-
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 

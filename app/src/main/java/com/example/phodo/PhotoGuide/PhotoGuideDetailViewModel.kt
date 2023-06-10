@@ -4,23 +4,26 @@ import android.app.Application
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.os.Handler
+import android.os.Looper
+import android.os.Message
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.example.phodo.R
-import kotlinx.coroutines.flow.flowOf
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.phodo.Repository.PhotoGuideRepository
+import com.example.phodo.dto.PhotoGuideItemDTO
+import kotlinx.coroutines.launch
 import org.json.JSONObject
 import org.opencv.android.OpenCVLoader
 import org.opencv.android.Utils
 import org.opencv.core.*
 import org.opencv.imgproc.Imgproc
+import java.net.URL
 
 
-class PhotoGuideDetailViewModel(application: Application) : AndroidViewModel(application) {
-
-    val selectedPhotoItem = MutableLiveData<PhotoGuideItem>() //변경/관찰가능한 List<Todo>타입에 LiveData
-    //lateinit var photo: LiveData<Int>
-    lateinit var bit_img : Bitmap
+class PhotoGuideDetailViewModel(private val phoguideRepository: PhotoGuideRepository) : ViewModel() {
 
     init{
         if (!OpenCVLoader.initDebug()) {
@@ -29,115 +32,94 @@ class PhotoGuideDetailViewModel(application: Application) : AndroidViewModel(app
             Log.d("test", "OpenCV is loaded successfully!");
 
         }
+    }
+
+    val selectedPhotoItem = MutableLiveData<PhotoGuideItemDTO>() //변경/관찰가능한 List<Todo>타입에 LiveData
+    val resultImg = MutableLiveData<Bitmap>()
+    var contoursList = ArrayList<MatOfPoint>()
+    lateinit var context : Context
+    val ori_src = Mat()
+
+    fun getGuideDetail(photoGuideId : Int, context: Context) {
+        this.context = context
+        viewModelScope.launch {
+            val photoGuides = phoguideRepository.getGuideDetail(photoGuideId)
+            selectedPhotoItem.value = photoGuides
+            setCountour()
+        }
+    }
+
+    //컨투어 리스트를 사용하기 편하게 미리 Mat 형태로 변환해놓음
+    fun setCountour() {
+        //ori_picture는 Url String 형태임
+
+        val handler = object  : Handler(Looper.myLooper()!!) {
+            override fun handleMessage(msg: Message) {
+                super.handleMessage(msg)
+                // 핸들러에게 이 작업 수행해주세요 라고 요청할 수 있고 해당 작업은 메인 스레드에서 처리
+                when (msg.what) {
+                    0 -> {
+                        setGuideImg()
+                    }
+                }
+                }
+
+            }
+
+        Log.d("contuor","${selectedPhotoItem.value!!.contourList}")
+        val oriImg_url = URL(selectedPhotoItem.value!!.photo)
+        val thread1 = object : Thread() {
+            override fun run() {//백그라운드 스레드로 처리하고 프로그레스바로처리
+                super.run()
+
+                val ori_picture: Bitmap = BitmapFactory.decodeStream(oriImg_url.openConnection().getInputStream())
+                Utils.bitmapToMat(ori_picture, ori_src)
+
+                val jsonObject = JSONObject(selectedPhotoItem.value!!.contourList)
+
+                for (i in 0 until jsonObject.length()) {
+                    val jsonArray = jsonObject.getJSONArray("${i}")
+                    val points = arrayOfNulls<Point>(jsonArray.length())
+
+                    for(j in 0 until jsonArray.length()){
+                        val pointObject = jsonArray.getJSONObject(j)
+                        points[j] = Point(pointObject.getDouble("x"), pointObject.getDouble("y"))
+
+                    }
+                    val contour = MatOfPoint(*points)
+                    contoursList.add(contour)
+                }
+
+                val msg = Message()
+                msg.what = 0
+                handler.sendMessage(msg)
+            }
+        }
+        thread1.start()
 
     }
 
-    //처음 Detail 화면으로 넘어왔을 때 init 하는 부분
-    fun setDetailVideModel(selected_obj_item : PhotoGuideItem, context : Context) {
-        this.selectedPhotoItem.value = selected_obj_item
+    fun setGuideImg() {
+        val guideImg = Mat()
+        Imgproc.resize(ori_src, guideImg, Size(selectedPhotoItem.value!!.width.toDouble(), selectedPhotoItem.value!!.height.toDouble()), 0.0, 0.0, Imgproc.INTER_AREA) //3024.0, 4032.0
 
-        /*
-
-        val mask_picture: Bitmap =
-            BitmapFactory.decodeResource(context.resources, R.drawable.colo_black_contour_img)
-        val mask_src = Mat()
-        Utils.bitmapToMat(mask_picture, mask_src)
-        val hierarchy = Mat()
-        val gray = Mat()
-
-        Imgproc.findContours(
-            gray,
-            contours,
-            hierarchy,
-            Imgproc.RETR_TREE,
-            Imgproc.CHAIN_APPROX_SIMPLE
-        )
-        Log.d("mask","${contours}")
-
- */
-        /*
-        val newWidth = 480
-        val newHeight = 640
-
-        val options = BitmapFactory.Options().apply {
-            inJustDecodeBounds = true
-            BitmapFactory.decodeResource(context.resources, R.drawable.sample_colo_ori3, this)
-        }
-
-        // 이미지 크기 계산
-        val widthRatio = options.outWidth.toFloat() / newWidth.toFloat()
-        val heightRatio = options.outHeight.toFloat() / newHeight.toFloat()
-        val sampleSize = Math.max(widthRatio, heightRatio).toInt()
-
-        // BitmapFactory.Options 객체 업데이트
-        options.apply {
-            inJustDecodeBounds = false
-            inSampleSize = sampleSize
-        }
-
-        // 새로운 크기로 이미지 변환
-        val bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.sample_colo_ori3, options)
-        val scaledBitmap = Bitmap.createScaledBitmap(bitmap, newWidth, newHeight, false)
-
-         */
-
-        val ori_picture: Bitmap =
-            BitmapFactory.decodeResource(context.resources, R.drawable.sample_colo_ori3)
-        val ori_src = Mat()
-        Utils.bitmapToMat(ori_picture, ori_src)
-
-        val resized_img = Mat()
-        Imgproc.resize(ori_src, resized_img, Size(1080.0, 1440.0), 0.0, 0.0, Imgproc.INTER_AREA)
-
-        val contoursList = ArrayList<MatOfPoint>()
-        val jsonObject = JSONObject(selected_obj_item.jsonData)
-
-
-        val  w = ori_picture.width.toDouble()
-        val  h = ori_picture.height.toDouble()
-        Log.d("test","w : ${w}, h : ${h}")
-
-        for (i in 0 until jsonObject.length()) {
-            val jsonArray = jsonObject.getJSONArray("${i}")
-            val points = arrayOfNulls<Point>(jsonArray.length())
-
-            for(j in 0 until jsonArray.length()){
-                val pointObject = jsonArray.getJSONObject(j)
-                //Log.d("pointObject","${pointObject}")
-                points[j] = Point(pointObject.getDouble("x"), pointObject.getDouble("y"))
-
-            }
-            val contour = MatOfPoint(*points)
-            contoursList.add(contour)
-        }
-
-      for (contourIdx in contoursList.indices) {
-            //Log.d("contourIdx","${contourIdx}")
-                Imgproc.drawContours(
-                    resized_img,
-                    contoursList,
-                    contourIdx,
-                    Scalar(255.0, 255.0, 255.0),
-                    5
-                )
-
+        for (contourIdx in contoursList.indices) {
+            Imgproc.drawContours(
+                guideImg,
+                contoursList,
+                contourIdx,
+                Scalar(255.0, 255.0, 255.0),
+                5
+            )
         }
 
         val tempBmp1 = Bitmap.createBitmap(
-            resized_img.width(), resized_img.height(),
+            guideImg.width(), guideImg.height(),
             Bitmap.Config.ARGB_8888
         )
 
-        Utils.matToBitmap(resized_img, tempBmp1)
-        bit_img = tempBmp1
-
-
-
+        Utils.matToBitmap(guideImg, tempBmp1)
+        resultImg.value = tempBmp1
     }
-
-    //이후에 해당 Item 객체의 Id로 변화를 감지
-    //객체 자체가 삭제되었을 수 있기 때문에 항상 null 체크 필요
-
-
 
 }
