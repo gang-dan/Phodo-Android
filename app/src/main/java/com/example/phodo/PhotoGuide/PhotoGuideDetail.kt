@@ -13,11 +13,9 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.marginBottom
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.phodo.HomeActivity
-import com.example.phodo.PhotoGuideListViewModel
+import com.example.phodo.*
 import com.example.phodo.PhotoMap.MapActivity
-import com.example.phodo.R
-import com.example.phodo.ViewModelFactory
+import com.example.phodo.data.RemoteDataSourceImp
 import com.example.phodo.databinding.ActivityPhotoGuideDetailBinding
 import com.example.phodo.dto.PhotoGuideItemDTO
 import com.example.phodo.dto.PhotoGuidesDTO
@@ -26,7 +24,9 @@ class PhotoGuideDetail : AppCompatActivity() {
 
     private lateinit var guide_detail_binding: ActivityPhotoGuideDetailBinding
     //private lateinit var viewModel : PhotoGuideDetailViewModel //by viewModels()
-    private val viewModel : PhotoGuideDetailViewModel by viewModels { ViewModelFactory(this) }
+    private val viewModel : PhotoGuideDetailViewModel by viewModels { ViewModelFactory(
+        RemoteDataSourceImp(RetrofitInstance)
+    ) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

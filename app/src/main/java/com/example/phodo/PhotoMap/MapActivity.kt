@@ -19,7 +19,9 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import com.example.phodo.PhotoGuide.PhotoGuideDetailViewModel
 import com.example.phodo.R
+import com.example.phodo.RetrofitInstance
 import com.example.phodo.ViewModelFactory
+import com.example.phodo.data.RemoteDataSourceImp
 import com.example.phodo.databinding.ActivityMapBinding
 import com.example.phodo.dto.PhotoSpotItemDTO
 import com.example.phodo.dto.PhotoSpotsDTO
@@ -31,7 +33,11 @@ import net.daum.mf.map.api.MapView
 class MapActivity : AppCompatActivity(), MapView.POIItemEventListener,BottomSheetListener {
 
     private lateinit var map_binding: ActivityMapBinding
-    private val viewModel : MapViewModel by viewModels { ViewModelFactory(this) }
+    private val viewModel : MapViewModel by viewModels { ViewModelFactory(
+        RemoteDataSourceImp(
+            RetrofitInstance
+        )
+    ) }
     lateinit var photoSpot_bottomSheet : BottomSheet
     var isSelect = false
 

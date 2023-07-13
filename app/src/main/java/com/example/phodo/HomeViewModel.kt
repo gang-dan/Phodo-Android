@@ -53,7 +53,7 @@ class HomeViewModel(private val homeRepository: HomeRepository): ViewModel() {
         //토큰 정보 세팅
         //HomeActivity.prefs.setAccessToken("accessToken", accessToken)
 
-        // 멤버 정보 세팅
+        // 사용자 정보 세팅
         //HomeActivity.prefs.setUserProfile()
     }
 

@@ -8,14 +8,6 @@ import retrofit2.http.*
 
 interface ApiService {
 
-
-    @POST("/login/oauth2/code/google")
-    fun getAccessToken(
-        @Body request: LoginGoogleRequestModel
-    ):
-            Call<LoginGoogleResponseModel>
-
-
     /*
      * oauth
      */
@@ -36,21 +28,6 @@ interface ApiService {
     * PhotoGuide
     */
 
-    // 사용자가 만든 포토가이드 리스트
-    @GET("")
-    suspend fun getMyPhotoGuide(
-        @Header("accessToken") accessToken: String,
-        @Query("userId") userId: Int
-    ): List<PhotoGuideItemDTO>
-
-    // 사용자가 찜한 포토가이드 리스트
-    @GET("")
-    suspend fun getMyLikePhotoGuide(
-        @Header("accessToken") accessToken: String,
-        @Query("userId") userId: Int
-    ): List<PhotoGuideItemDTO>
-
-
     // DB에 저장된 모든 포토가이드 리스트
     @GET("/api/guide/all")
     suspend fun getAllPhotoGuide(
@@ -67,6 +44,21 @@ interface ApiService {
     suspend fun getLocationPhotoGuide(
         @Query("locationName") locationName: String
     ): List<PhotoGuideItemDTO>
+
+    // 사용자가 만든 포토가이드 리스트
+    @GET("")
+    suspend fun getMyPhotoGuide(
+        @Header("accessToken") accessToken: String,
+        @Query("userId") userId: Int
+    ): List<PhotoGuideItemDTO>
+
+    // 사용자가 찜한 포토가이드 리스트
+    @GET("")
+    suspend fun getMyLikePhotoGuide(
+        @Header("accessToken") accessToken: String,
+        @Query("userId") userId: Int
+    ): List<PhotoGuideItemDTO>
+
 
 
     /*
@@ -109,6 +101,8 @@ interface ApiService {
     /*
     * 좋아요 누르기
      */
+
+
 
 
 

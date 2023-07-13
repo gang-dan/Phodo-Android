@@ -31,5 +31,4 @@ class RemoteDataSourceImp(private val apiClient : RetrofitInstance) : RemoteData
     }
 
 
-
 }

@@ -1,5 +1,7 @@
 package com.example.phodo.photoMaker
 
+import android.app.Application
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -17,14 +19,17 @@ import androidx.lifecycle.Observer
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.phodo.HomeViewModel
 import com.example.phodo.PhotoGuideListViewModel
+import com.example.phodo.RetrofitInstance
 import com.example.phodo.ViewModelFactory
+import com.example.phodo.data.RemoteDataSourceImp
 import com.example.phodo.databinding.ActivityPhotoMakerBinding
 import org.json.JSONObject
 
 class PhotoMaker : FragmentActivity(){
 
     private lateinit var binding_maker: ActivityPhotoMakerBinding
-    val viewModel : PhotoMakerViewModel by viewModels { ViewModelFactory(this) }
+    val viewModel : PhotoMakerViewModel by viewModels { ViewModelFactory(RemoteDataSourceImp(RetrofitInstance)) }
+    //val viewModel : PhotoMakerViewModel by viewModels { ViewModelFactory(applicationContext as Application,RemoteDataSourceImp(RetrofitInstance)) }
 
     val frag1 = ContourFragment()
     val frag2 = TagLocFragment()

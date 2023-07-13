@@ -167,14 +167,6 @@ class HomeActivity : AppCompatActivity() {
             .build()
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
-        /*
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.server_client_id))
-            .requestServerAuthCode(getString(R.string.server_client_id))
-            .requestEmail()
-            .build()
-         */
-
     }
 
     // 로그인 하면
@@ -189,22 +181,15 @@ class HomeActivity : AppCompatActivity() {
     private fun signOut() {
         googleSignInClient.signOut()
             .addOnCompleteListener {
-                //viewModel.requestLogout()
+                //viewModel.requestLogout() //Prefs에 있는 정보 삭제
                 Toast.makeText(this, "로그아웃 되셨습니다!", Toast.LENGTH_SHORT).show()
-                //Prefs에 있는 정보 삭제 (서버에는 알려야 하는지?....안 알려도 될 것 같음)
-            }
-    }
 
-    // 앱이 켜지자 마자 해당 메서드 수행,
-    fun isLogin(): Boolean {
-        val account = GoogleSignIn.getLastSignedInAccount(this)
-        return if (account == null) false else (true)
+            }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
 
             val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
@@ -248,6 +233,12 @@ class HomeActivity : AppCompatActivity() {
             }
 
         }
+    }
+
+    // 앱이 켜지자 마자 해당 메서드 수행,
+    fun isLogin(): Boolean {
+        val account = GoogleSignIn.getLastSignedInAccount(this)
+        return if (account == null) false else (true)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

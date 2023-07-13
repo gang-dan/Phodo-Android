@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.phodo.*
 import com.example.phodo.PhotoMap.MapActivity
 import com.example.phodo.Repository.PhotoGuideRepository
+import com.example.phodo.data.RemoteDataSourceImp
 import com.example.phodo.databinding.ActivityPhotoGuideListBinding
 import com.example.phodo.dto.PhotoGuidesDTO
 
@@ -22,7 +23,9 @@ import java.io.Serializable
 class PhotoGuideList : AppCompatActivity() {
 
     private lateinit var guide_list_binding: ActivityPhotoGuideListBinding
-    private val viewModel : PhotoGuideListViewModel by viewModels { ViewModelFactory(this) }
+    private val viewModel : PhotoGuideListViewModel by viewModels { ViewModelFactory(
+        RemoteDataSourceImp(RetrofitInstance)
+    ) }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,7 +80,7 @@ class PhotoGuideList : AppCompatActivity() {
             viewModel.guideLiveData.value!!,
             onSelectitem = {
                 val intent = Intent(this, PhotoGuideDetail::class.java)
-                intent.putExtra("selected_guide_item", it) // parcel 클래스 대신 Serializable 클래스로 객체 전달
+                intent.putExtra("selected_guide_item", it)
                 startActivity(intent)
             })
     }
