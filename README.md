@@ -20,7 +20,7 @@
 
 ## 🗺️ Information
 MVVM 패턴을 적용하기 위해 AAC ViewModel을 활용하는 방식을 시도했으나 구현방법과 개념을 완전히 숙지하지 못하여 제대로 구현하지 못하였습니다.
-하지만 시행착오 과정에서 MVVM 패턴과 AAC ViewModel의 관계에 대해 자세히 공부하게 되었고 개인 기술 블로그에 포스팅하였습니다.
+하지만 시행착오 과정에서 MVVM 패턴과 AAC ViewModel의 관계에 대해 자세히 공부하게 되었고 개인 기술 블로그에 포스팅하였습니다.<br>
 [MVC, MVVM 패턴 그리고 ViewModel](https://studyroadmap-kkm.tistory.com/168)
 [AAC ViewModel 사용하기](https://studyroadmap-kkm.tistory.com/169)
 <br>
