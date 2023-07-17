@@ -1,12 +1,10 @@
-package com.example.phodo.ui.home
+package com.example.phodo.Home.camera
 
-import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.phodo.dto.PhotoGuideItemDTO

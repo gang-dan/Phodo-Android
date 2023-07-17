@@ -1,4 +1,4 @@
-package com.example.phodo
+package com.example.phodo.Home
 
 import android.content.Context
 import android.graphics.*
@@ -9,6 +9,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.phodo.R
 import com.example.phodo.Repository.HomeRepository
 import com.example.phodo.dto.PhotoGuideItemDTO
 import kotlinx.coroutines.launch
@@ -18,7 +19,6 @@ import org.opencv.core.*
 import org.opencv.core.Point
 import org.opencv.core.Scalar
 import org.opencv.imgproc.Imgproc
-import retrofit2.http.Url
 import java.net.URL
 
 
@@ -73,8 +73,8 @@ class HomeViewModel(private val homeRepository: HomeRepository): ViewModel() {
 
     fun loadImg(context : Context) {
 
-        var maskBitmap = BitmapFactory.decodeResource(context.resources,R.drawable.sample_colo)
-        var originalBitmap = BitmapFactory.decodeResource(context.resources,R.drawable.sample_colo)
+        var maskBitmap = BitmapFactory.decodeResource(context.resources, R.drawable.sample_colo)
+        var originalBitmap = BitmapFactory.decodeResource(context.resources, R.drawable.sample_colo)
 
 
         val handler1 = object  : Handler(Looper.myLooper()!!) {

@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.phodo.ui.home.CameraFragment"
+        android:name="com.example.phodo.Home.camera.CameraFragment"
         android:label="@string/menu_camera"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="com.example.phodo.ui.gallery.GalleryFragment"
+        android:name="com.example.phodo.Home.gallery.GalleryFragment"
         android:label="@string/menu_my_photo_guide"
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
         android:id="@+id/nav_slideshow"
-        android:name="com.example.phodo.ui.slideshow.SlideshowFragment"
+        android:name="com.example.phodo.Home.slideshow.SlideshowFragment"
         android:label="@string/menu_bookmark"
         tools:layout="@layout/fragment_slideshow" />
 </navigation>

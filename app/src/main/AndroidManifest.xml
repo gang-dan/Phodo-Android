@@ -26,7 +26,7 @@
         android:theme="@style/Theme.PHODO"
         tools:targetApi="31">
         <activity
-            android:name=".HomeActivity"
+            android:name=".Home.HomeActivity"
             android:exported="true"
             android:label="@string/title_activity_camera_home"
             android:theme="@style/Theme.PHODO.NoActionBar">
@@ -57,10 +57,7 @@
             android:exported="true"
             android:theme="@style/Theme.PHODO.NoActionBar">
         </activity>
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
-        </activity>
+
 
         <meta-data android:name="com.kakao.sdk.AppKey" android:value="d01aba9b8c8393addd5cbf36ea1f607c"/>
     </application>

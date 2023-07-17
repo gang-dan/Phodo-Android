@@ -1,29 +1,19 @@
 package com.example.phodo.photoMaker
 
-import android.app.Application
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.phodo.HomeViewModel
-import com.example.phodo.PhotoGuideListViewModel
 import com.example.phodo.RetrofitInstance
 import com.example.phodo.ViewModelFactory
 import com.example.phodo.data.RemoteDataSourceImp
 import com.example.phodo.databinding.ActivityPhotoMakerBinding
-import org.json.JSONObject
 
 class PhotoMaker : FragmentActivity(){
 

@@ -1,4 +1,4 @@
-package com.example.phodo
+package com.example.phodo.Home
 
 import android.content.Intent
 import android.graphics.Color
@@ -13,12 +13,15 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.phodo.R
+import com.example.phodo.RetrofitInstance
+import com.example.phodo.ViewModelFactory
+import com.example.phodo.data.RemoteDataSourceImp
 import com.example.phodo.databinding.ActivityHomeBinding
 import com.example.phodo.dto.PhotoGuideItemDTO
 import com.example.phodo.utils.PreferenceUtil
@@ -58,7 +61,11 @@ class HomeActivity : AppCompatActivity() {
     lateinit var selected_photoguide : PhotoGuideItemDTO
 
 
-    val viewModel : HomeViewModel by viewModels { ViewModelFactory(this) }
+    val viewModel : HomeViewModel by viewModels { ViewModelFactory(
+        RemoteDataSourceImp(
+            RetrofitInstance
+        )
+    ) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

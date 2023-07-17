@@ -4,20 +4,17 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
-import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.view.marginBottom
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.example.phodo.*
+import com.example.phodo.Home.ui.HomeActivity
 import com.example.phodo.PhotoMap.MapActivity
 import com.example.phodo.data.RemoteDataSourceImp
 import com.example.phodo.databinding.ActivityPhotoGuideDetailBinding
-import com.example.phodo.dto.PhotoGuideItemDTO
 import com.example.phodo.dto.PhotoGuidesDTO
 
 class PhotoGuideDetail : AppCompatActivity() {

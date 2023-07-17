@@ -1,4 +1,4 @@
-package com.example.phodo.ui.slideshow
+package com.example.phodo.Home.slideshow
 
 import android.os.Bundle
 import android.view.LayoutInflater

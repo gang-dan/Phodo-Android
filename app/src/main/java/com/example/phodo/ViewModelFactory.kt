@@ -1,10 +1,7 @@
 package com.example.phodo
 
-import android.app.Application
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.phodo.PhotoGuide.PhotoGuideDetail
 import com.example.phodo.PhotoGuide.PhotoGuideDetailViewModel
 import com.example.phodo.PhotoMap.MapViewModel
 import com.example.phodo.Repository.HomeRepository
@@ -12,8 +9,8 @@ import com.example.phodo.Repository.MapRepository
 import com.example.phodo.Repository.PhotoGuideRepository
 import com.example.phodo.Repository.PhotoMakerRepository
 import com.example.phodo.data.RemoteDataSourceImp
+import com.example.phodo.Home.HomeViewModel
 import com.example.phodo.photoMaker.PhotoMakerViewModel
-import com.example.phodo.ui.home.CameraViewModel
 
 class ViewModelFactory(private val remoteDataSource : RemoteDataSourceImp): ViewModelProvider.Factory { //private val application: Application,
 

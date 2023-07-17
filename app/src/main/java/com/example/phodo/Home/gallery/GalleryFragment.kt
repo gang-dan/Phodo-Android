@@ -1,4 +1,4 @@
-package com.example.phodo.ui.gallery
+package com.example.phodo.Home.gallery
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -1,4 +1,4 @@
-package com.example.phodo.ui.home
+package com.example.phodo.Home.camera
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -21,25 +21,17 @@ import android.util.Size
 import android.view.*
 import android.widget.SeekBar
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.example.phodo.*
+import com.example.phodo.Home.HomeActivity
 import com.example.phodo.PhotoGuide.PhotoGuideList
 import com.example.phodo.photoMaker.PhotoMaker
 import com.example.phodo.databinding.FragmentHomeBinding
-import com.example.phodo.dto.PhotoGuideItemDTO
-import com.example.phodo.ui.gallery.GalleryViewModel
-import org.opencv.android.OpenCVLoader
 import java.io.*
-import java.net.URI
 
 //import com.sun.tools.javac.resources.ct
 
