@@ -20,7 +20,14 @@
 ## 🗺️ Information
 ### Features
 0. 구글 로그인
-1. 
+1. 마이페이지 조회
+2. 사진 촬영하기
+3. 앨범 조회하기
+4. 포토가이드 둘러보기
+5. 포토가이드 적용하기
+6. 포토맵 둘러보기
+7. 포토가이드 만들기
+8. 포토스팟별 포토가이드 조회하기
 
 ### Technology Stack
 * Tools : Android Studio Dolphin
@@ -29,7 +36,6 @@
 * Android Architecture Components(AAC)
 * ViewModel
 * Naivgation Conponponent
-FirebaseMessagingService
 * OKHTTP
 * RETROFIT
 * SERIALIZATION
@@ -40,3 +46,29 @@ FirebaseMessagingService
 
 
 ## Foldering
+'''
+.
+├── base
+├── data
+│   ├── RemoteDataSource
+│   └── RemoteDataSourceImp
+├── Repository
+│   ├── NetworkModule
+│   └── RepositoryModule
+├── dto
+├── Home
+│   ├── camera (for navigation component)
+│   ├── gallery (for navigation component)
+│   ├── slideshow (for navigation component)
+│   ├── HomeActivity
+│   └── HomeViewModel
+├── PhotoGuide
+├── PhotoMap
+├── PhotoMaker
+├── utils
+│   └── PreferenceUtil
+├── ApiService
+├── ViewModelFactory
+└── RetrofitInstance
+
+'''
