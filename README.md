@@ -12,11 +12,31 @@
 | -------- | -------- | -------- | -------- | -------- | -------- |
 | | | | | | |
 
-| | |
+| | | |
 | -------- | -------- | -------- |
-| | |
+| | | |
 
 
 ## 🗺️ Information
+### Features
+0. 구글 로그인
+1. 
+
+### Technology Stack
+* Tools : Android Studio Dolphin
+* Language : Kotlin
+* Architecture Pattern : Repository Pattern
+* Android Architecture Components(AAC)
+* ViewModel
+* Naivgation Conponponent
+FirebaseMessagingService
+* OKHTTP
+* RETROFIT
+* SERIALIZATION
+* Google Oauth2.0
+* KAKAO Map
+* OpenCV
+* Picaso
+
 
 ## Foldering
