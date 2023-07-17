@@ -21,7 +21,9 @@
 ## 🗺️ Information
 MVVM 패턴을 적용하기 위해 AAC ViewModel을 활용하는 방식을 시도했으나 구현방법과 개념을 완전히 숙지하지 못하여 제대로 구현하지 못하였습니다.
 하지만 시행착오 과정에서 MVVM 패턴과 AAC ViewModel의 관계에 대해 자세히 공부하게 되었고 개인 기술 블로그에 포스팅하였습니다.
-
+[MVC, MVVM 패턴 그리고 ViewModel](https://studyroadmap-kkm.tistory.com/168)
+[AAC ViewModel 사용하기](https://studyroadmap-kkm.tistory.com/169)
+<br>
 
 또한 그 과정에서 AAC의 Repository를 사용하게 되었습니다. 
 현재는 remoteData 밖에 사용하고 있지 않으나 추후 local data 등을 사용하게 될 경우를 대비해 repository를 인터페이스화 하고 Data layer를 캡슐화하도록 수정할 계획입니다.
