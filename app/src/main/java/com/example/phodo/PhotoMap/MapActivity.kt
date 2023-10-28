@@ -33,11 +33,7 @@ import net.daum.mf.map.api.MapView
 class MapActivity : AppCompatActivity(), MapView.POIItemEventListener,BottomSheetListener {
 
     private lateinit var map_binding: ActivityMapBinding
-    private val viewModel : MapViewModel by viewModels { ViewModelFactory(
-        RemoteDataSourceImp(
-            RetrofitInstance
-        )
-    ) }
+    private val viewModel : MapViewModel by viewModels { ViewModelFactory(RemoteDataSourceImp(RetrofitInstance)) }
     lateinit var photoSpot_bottomSheet : BottomSheet
     var isSelect = false
 
@@ -75,6 +71,7 @@ class MapActivity : AppCompatActivity(), MapView.POIItemEventListener,BottomShee
         } else {
             // GPS가 꺼져있을 경우
             Toast.makeText(this, "GPS를 켜주세요.\nGPS를 켜져 있어야 정학한 지도 서비스가 가능합니다. ", Toast.LENGTH_SHORT).show()
+
         }
 
     }
@@ -100,6 +97,8 @@ class MapActivity : AppCompatActivity(), MapView.POIItemEventListener,BottomShee
                     )
                 }
                 builder.setNegativeButton("취소") { dialog, which ->
+                    // 취소 누르면 다시 권한 확인
+                    //requestPermissions(permission_list, 0)
 
                 }
                 builder.show()
@@ -128,27 +127,23 @@ class MapActivity : AppCompatActivity(), MapView.POIItemEventListener,BottomShee
                 photo_latitude,
                 photo_longitude
             )
+
         } else { // 리스트화면에서 넘어온 경우
             isSelect = false
             val userLocation = findCurrentUserLoc()
             moveToLoc(userLocation)
 
             viewModel.getPhotoSpotList(false,userLocation.longitude,userLocation.latitude)
-            /*
-            for (i in 0 until viewModel.spotsLiveData.value!!.size) {
-                drawNormalPhotoSpot(i,viewModel.spotsLiveData.value!![i])
-            }
 
-             */
 
         }
 
         /*
         map_binding.currentSearchBtn.setOnClickListener {
-            viewModel.getPhotoSpotList(this,null)
-            for (i in 0 until viewModel.spotLiveData.value!!.size) {
-                //drawNormalPhotoSpot(i,viewModel.spotLiveData.value!![i])
-            }
+        // 현재 맵뷰의 중심점 추출
+
+          viewModel.getPhotoSpotList(this,null)
+
         }
          */
 

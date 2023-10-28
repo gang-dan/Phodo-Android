@@ -3,23 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_camera">
 
     <fragment
-        android:id="@+id/nav_home"
+        android:id="@+id/nav_camera"
         android:name="com.example.phodo.Home.camera.CameraFragment"
         android:label="@string/menu_camera"
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
+        android:id="@+id/nav_photoguide"
         android:name="com.example.phodo.Home.gallery.GalleryFragment"
         android:label="@string/menu_my_photo_guide"
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
+        android:id="@+id/nav_like"
         android:name="com.example.phodo.Home.slideshow.SlideshowFragment"
-        android:label="@string/menu_bookmark"
+        android:label="@string/menu_like"
         tools:layout="@layout/fragment_slideshow" />
 </navigation>

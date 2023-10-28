@@ -11,8 +11,10 @@ import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
+import com.example.phodo.GuideLine
 import com.example.phodo.R
 import com.example.phodo.databinding.FragmentContourBinding
+import kotlinx.coroutines.CoroutineScope
 import org.json.JSONObject
 import org.opencv.android.Utils
 import org.opencv.core.*
@@ -21,103 +23,42 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 
 
-class ContourFragment() : Fragment() {
+class ContourFragment(val photoGuideLine : GuideLine) : Fragment() {
 
     private lateinit var frag_contour_binding : FragmentContourBinding
+    lateinit var parent : PhotoMaker
+
     val contourImg = MutableLiveData<Bitmap>()
     var reponseJsonObject = JSONObject()
-    var contourIdxMap = HashMap<Int, Boolean>()
-    lateinit var parent : PhotoMaker
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         frag_contour_binding = FragmentContourBinding.inflate(layoutInflater)
         val view = frag_contour_binding.root
         parent = requireActivity() as PhotoMaker
 
-        //api 호출
-
         //컨투어 리스트 타입 변환해서 1차 세팅해야 함
+        initcontourIdxMap()
+
+        // 첫 외곽선 체크 박스 셋팅
         setContourBox(requireContext())
-        draw()
+        contourImg.value = photoGuideLine.drawGuideLine(photoGuideLine.contourIdxMap, parent.ouput_img!!)
 
         return view
     }
 
-    fun draw() {
-
-        val ori_picture: Bitmap = BitmapFactory.decodeResource(requireContext().resources, R.drawable.sample_trevi)
-        val ori_src = Mat()
-        Utils.bitmapToMat(ori_picture, ori_src)
-
-        val contoursList = ArrayList<MatOfPoint>()
-
-        val assetManager = requireContext().resources.assets
-        val inputStream = assetManager.open("trevi_contour_data.json")
-        val isr = InputStreamReader(inputStream,"UTF-8") //스트림에서 문자열을 읽어오는 reader
-        val br = BufferedReader(isr)  // 스트림은 그냥 데이터의 흐름이고 버퍼는 그걸 일시적으로 저장하는 곳인가?...
-
-        var str:String? = null
-        val sb = StringBuffer()
-
-        do {
-            str = br.readLine()
-            if (str != null) {
-                sb.append("${str}\n")
-            }
-        } while (str != null)
-        br.close() //파일 닫기
-
-        val jsonData : String  = sb.toString()
-        reponseJsonObject = JSONObject(jsonData)
-
-        for (i in 0 until reponseJsonObject.length()) {
-            val jsonArray = reponseJsonObject.getJSONArray("${i}")
-            val points = arrayOfNulls<Point>(jsonArray.length())
-
-            for(j in 0 until jsonArray.length()){
-                val pointObject = jsonArray.getJSONObject(j)
-                points[j] = Point(pointObject.getDouble("x"), pointObject.getDouble("y"))
-
-            }
-            val contour = MatOfPoint(*points)
-            contoursList.add(contour)
+    fun initcontourIdxMap() {
+        for (idx in photoGuideLine.guideLineList.indices){
+            photoGuideLine.contourIdxMap[idx] = true
         }
-
-        val resized_img = Mat()
-        Imgproc.resize(ori_src, resized_img, Size(1080.0, 1440.0), 0.0, 0.0, Imgproc.INTER_AREA)
-
-        for (contourIdx in contoursList.indices) {
-            if (contourIdxMap.get(contourIdx) == true) {
-                Imgproc.drawContours(
-                    resized_img,
-                    contoursList,
-                    contourIdx,
-                    Scalar(255.0, 255.0, 255.0),
-                    5
-                )
-            }
-        }
-
-        val tempBmp1 = Bitmap.createBitmap(
-            resized_img.width(), resized_img.height(),
-            Bitmap.Config.ARGB_8888
-        )
-        Utils.matToBitmap(resized_img, tempBmp1)
-        val bit_img = tempBmp1
-
-        contourImg.value = bit_img
-        checkContourBox()
-
     }
 
 
-    fun setContourBox(context : Context) {
-        val num = 9 //reponseJsonObject.length()
+    fun setContourBox(context: Context) {
         var curr_layout = LinearLayout(context)
 
-        for (i in 0 .. num) {
-
-            if(i % 3 == 0) { //라운딩 박스 그려주기
+        var count = 0
+        for (contour_idx in photoGuideLine.contourIdxMap.keys) {
+            if(count % 3 == 0) { //라운딩 박스 그려주기
                 val linearLayout = frag_contour_binding.scrollLinearLayout
                 val row = LayoutInflater.from(context).inflate(R.layout.contour_box_row, null) as LinearLayout
 
@@ -147,23 +88,30 @@ class ContourFragment() : Fragment() {
             check_box.setCompoundDrawablesWithIntrinsicBounds(drawable, null, null,null)
 
             check_box.isChecked = true //모두 체크된 상태로 시작
-            check_box.tag = i
-            contourIdxMap.put(i,true) //초기화
+            check_box.tag = contour_idx
 
+            // 체크 변화시 리스너
             check_box.setOnCheckedChangeListener { compoundButton, b ->
-                val idx = compoundButton.tag as Int
-                contourIdxMap.put(idx, b)
-                draw()
+                //val idx = compoundButton.tag as MatOfPoint
+                if(photoGuideLine.contourIdxMap[contour_idx] == false) {
+                    photoGuideLine.contourIdxMap[contour_idx] = true
+                } else {
+                    photoGuideLine.contourIdxMap[contour_idx] = false
+                }
+                // 체크 박스 변화에 따라 외곽선 화면에 다시 그림
+                contourImg.value = photoGuideLine.drawGuideLine(photoGuideLine.contourIdxMap, parent.ouput_img!!)
             }
-
             curr_layout.addView(check_box)
+
+            count++
 
         }
     }
 
 
-    fun checkContourBox() {
 
+    /*
+    fun checkContourBox() {
         var new_rquestJsonObject = JSONObject()
         var count = 0
         for (i in 0..contourIdxMap.size) {
@@ -175,6 +123,8 @@ class ContourFragment() : Fragment() {
         parent.viewModel.finalContourJson.value = new_rquestJsonObject
 
     }
+
+     */
 
 
 }

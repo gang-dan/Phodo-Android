@@ -8,13 +8,17 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_camera">Camera</string>
-    <string name="menu_my_photo_guide">PhotoGuide</string>
-    <string name="menu_bookmark">BookMark</string>
-    <string name="server_client_id">214501978899-i8eb4aol6gb0r3cuau2iq4i8sdgoqdrp.apps.googleusercontent.com</string>
-    <string name="server_client_scret">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</string>
+    <string name="menu_camera">PHODO</string>
+    <string name="menu_my_photo_guide">Photoguide</string>
+    <string name="menu_like">Like</string>
+    <string name="menu_setting">Setting</string>
+    <string name="menu_sign_in">Sign in</string>
+    <string name="menu_sign_out">Sign out</string>
+<!--    <string name="server_client_id">BuildConfig.SERVER_CLIENT_ID</string>-->
+<!--    <string name="server_client_scret">BuildConfig.SERVER_CLIENT_SECRET</string>-->
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
 
 
 </resources>

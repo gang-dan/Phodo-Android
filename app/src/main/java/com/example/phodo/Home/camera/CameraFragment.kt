@@ -31,6 +31,7 @@ import com.example.phodo.Home.HomeActivity
 import com.example.phodo.PhotoGuide.PhotoGuideList
 import com.example.phodo.photoMaker.PhotoMaker
 import com.example.phodo.databinding.FragmentHomeBinding
+import com.squareup.picasso.Picasso
 import java.io.*
 
 //import com.sun.tools.javac.resources.ct
@@ -39,15 +40,9 @@ import java.io.*
 class CameraFragment : Fragment() {
 
     private lateinit var frag_home_binding : FragmentHomeBinding
-    //private val viewmodel  by activityViewModels<HomeViewModel> ()
-
-   //private val viewModel : PhotoGuideListViewModel by viewModels { ViewModelFactory() }
-    //val viewmodel = ViewModelProvider().get(CameraViewModel::class.java)
-    //val viewmodel: CameraViewModel by viewModels()
-
-    //var viewmodel : HomeViewModel by viewModels { ViewModelFactory(requireContext()) }
-
     lateinit var homeActivity: HomeActivity
+
+    // 카메라 변수
     private var cameraDevice : CameraDevice? = null
     lateinit var imageReader : ImageReader
     var cameraId : String? = null
@@ -66,14 +61,10 @@ class CameraFragment : Fragment() {
         frag_home_binding = FragmentHomeBinding.inflate(layoutInflater)
         val view = frag_home_binding.root
 
-
         homeActivity = context as HomeActivity
-
-        frag_home_binding.textureView.surfaceTextureListener = textureListener
-
         val parent = requireActivity() as HomeActivity
 
-
+        frag_home_binding.textureView.surfaceTextureListener = textureListener
         frag_home_binding.progressBar.isVisible = false
 
 
@@ -113,15 +104,25 @@ class CameraFragment : Fragment() {
         })
 
 
-        // 필터 적용시 조절 버튼
+        // HomeActivity에서 필터 적용 여부 판단 -> 필터 적용시 조절 버튼
         parent.viewModel.isPhootGuide.observe(homeActivity){
             if (it == true) {
-                parent.viewModel.loadImg(homeActivity)
+                // 이미지
+                // 피카소로 바로 원본 이미지 띄우기
+                Picasso.get()
+                    .load(parent.viewModel.photoGuide.value!!.photo)
+                    .into(frag_home_binding.originImgView)
+
+                // 함수로 마스크 이미지 연산
+                // 투명 가이드라인 이미지 피카소로 띄우기 (지금은 설정 안되어 있음)
+
+                //parent.viewModel.setPhotoGuideFilter() // homeActivity
                 //parent.viewModel.setMaskImg() // 인물, 배경 분리 이미지 세팅
                 //parent.viewModel.setContourImg()
                 //viewmodel.setContourImg(homeActivity)
-                frag_home_binding.progressBar.isVisible = true
+                frag_home_binding.progressBar.isVisible = true // 이미지 처리 로딩중 표시
 
+                // 버튼 및 SeekBar 셋팅
                 frag_home_binding.seekContainer.isVisible = true
                 frag_home_binding.filterBtnContainer.isVisible = true
                 frag_home_binding.filterDeleteBtn.isVisible = true
@@ -130,10 +131,12 @@ class CameraFragment : Fragment() {
                 parent.viewModel.isPeopleBtn.value = true
                 parent.viewModel.isContourBtn.value = true
 
+                // 투명도 조절 리스너 셋팅
                 frag_home_binding.landsacpeSeekBar.setOnSeekBarChangeListener(seekbarListener)
                 frag_home_binding.peopleSeekBar.setOnSeekBarChangeListener(seekbarListener)
 
             }else {
+                frag_home_binding.originImgView.setImageResource(0)
                 frag_home_binding.filterImgLand.setImageResource(0)
                 frag_home_binding.filterImgPeople.setImageResource(0)
                 frag_home_binding.filterImgCpntour.setImageResource(0)
@@ -145,14 +148,13 @@ class CameraFragment : Fragment() {
         }
 
 
-
         // 사진촬영 버튼
-        frag_home_binding.button.setOnClickListener {
+        frag_home_binding.snapBtn.setOnClickListener {
             takePicture()
         }
 
         // 갤러리 버튼
-        frag_home_binding.circleGallery.setOnClickListener {
+        frag_home_binding.galleryBtn.setOnClickListener {
 
             val intent1 = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             intent1.type = "image/*"
@@ -164,7 +166,7 @@ class CameraFragment : Fragment() {
         }
 
         // 포토가이드 리스트 화면 이동
-        frag_home_binding.imageView.setOnClickListener {
+        frag_home_binding.listBtn.setOnClickListener {
             val intent = Intent(context, PhotoGuideList::class.java)
             startActivity(intent)
         }
@@ -183,7 +185,6 @@ class CameraFragment : Fragment() {
         frag_home_binding.circleContourBtn.setOnClickListener {
             parent.viewModel.isContourBtn.value = !(parent.viewModel.isContourBtn.value!!)
         }
-
 
 
         return view

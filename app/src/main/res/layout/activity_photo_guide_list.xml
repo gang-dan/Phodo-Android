@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:theme= "@style/Theme.Material3.DayNight">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -33,7 +34,7 @@
 
     </LinearLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+   <!--<com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
         android:layout_width="76dp"
         android:layout_height="60dp"
@@ -44,6 +45,14 @@
         android:src="@drawable/baseline_location_on_40"
         app:backgroundTint="@color/white"
         app:fabSize="normal"
-        app:tint="@color/purple" />
+        app:tint="@color/purple" /> -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floating_action_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        app:srcCompat="@drawable/ic_arrow_back"
+        />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

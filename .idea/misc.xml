@@ -9,6 +9,7 @@
         <entry key="app/src/main/res/drawable/baseline_location_on_24.xml" value="0.163" />
         <entry key="app/src/main/res/drawable/baseline_location_on_40.xml" value="0.189" />
         <entry key="app/src/main/res/drawable/baseline_location_pin_24.xml" value="0.1035" />
+        <entry key="app/src/main/res/drawable/baseline_photo_camera_24.xml" value="0.193" />
         <entry key="app/src/main/res/drawable/baseline_place_24.xml" value="0.253" />
         <entry key="app/src/main/res/drawable/camer_button.xml" value="0.1575" />
         <entry key="app/src/main/res/drawable/camera_button.xml" value="0.183" />
@@ -33,9 +34,22 @@
         <entry key="app/src/main/res/drawable/ic_menu_camera.xml" value="0.252" />
         <entry key="app/src/main/res/drawable/ic_photo_guide.xml" value="0.113" />
         <entry key="app/src/main/res/drawable/ic_photo_library_48px.xml" value="0.2285" />
+        <entry key="app/src/main/res/drawable/ic_property_1_list_photoguide_off.xml" value="0.193" />
         <entry key="app/src/main/res/drawable/ic_research_48px.xml" value="0.2285" />
         <entry key="app/src/main/res/drawable/landscape_48px.xml" value="0.2535" />
         <entry key="app/src/main/res/drawable/login_48px.xml" value="0.273" />
+        <entry key="app/src/main/res/drawable/nav_camera_off.xml" value="0.192" />
+        <entry key="app/src/main/res/drawable/nav_camera_on.xml" value="0.192" />
+        <entry key="app/src/main/res/drawable/nav_like_off.xml" value="0.192" />
+        <entry key="app/src/main/res/drawable/nav_like_on.xml" value="0.192" />
+        <entry key="app/src/main/res/drawable/nav_menu.xml" value="0.193" />
+        <entry key="app/src/main/res/drawable/nav_menu_camera_on.xml" value="0.1945" />
+        <entry key="app/src/main/res/drawable/nav_menu_non_selected.xml" value="0.1945" />
+        <entry key="app/src/main/res/drawable/nav_photoguide_off.xml" value="0.192" />
+        <entry key="app/src/main/res/drawable/nav_photoguide_on.xml" value="0.192" />
+        <entry key="app/src/main/res/drawable/nav_setting.xml" value="0.192" />
+        <entry key="app/src/main/res/drawable/nav_sign_in.xml" value="0.192" />
+        <entry key="app/src/main/res/drawable/nav_sign_out.xml" value="0.192" />
         <entry key="app/src/main/res/drawable/people_circle_48px.xml" value="0.2535" />
         <entry key="app/src/main/res/drawable/people_group_48px.xml" value="0.2535" />
         <entry key="app/src/main/res/drawable/photo_guide_border.xml" value="0.3384772338867188" />
@@ -44,29 +58,31 @@
         <entry key="app/src/main/res/drawable/tag_box.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/user_circle.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_camera_home.xml" value="0.14213197969543148" />
+        <entry key="app/src/main/res/layout/activity_drawer.xml" value="0.23206176757812502" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25729166666666664" />
         <entry key="app/src/main/res/layout/activity_map.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_photo_guide_detail.xml" value="0.28713396773684496" />
+        <entry key="app/src/main/res/layout/activity_photo_guide_detail.xml" value="0.20000475631106374" />
         <entry key="app/src/main/res/layout/activity_photo_guide_list.xml" value="0.165" />
-        <entry key="app/src/main/res/layout/activity_photo_maker.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_photo_maker.xml" value="0.25" />
         <entry key="app/src/main/res/layout/app_bar_camera_home.xml" value="0.14127349853515625" />
-        <entry key="app/src/main/res/layout/app_bar_home.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/app_bar_home.xml" value="0.165" />
         <entry key="app/src/main/res/layout/content_camera_home.xml" value="0.15065612792968752" />
-        <entry key="app/src/main/res/layout/content_home.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/content_home.xml" value="0.22484436035156252" />
         <entry key="app/src/main/res/layout/contour_box_layout.xml" value="0.17395833333333333" />
         <entry key="app/src/main/res/layout/contour_box_row.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/custom_drawer_menu_item.xml" value="0.11581196581196582" />
         <entry key="app/src/main/res/layout/fragment_bottom_sheet.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_contour.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_contour.xml" value="0.2674774169921875" />
         <entry key="app/src/main/res/layout/fragment_gallery.xml" value="0.1287037037037037" />
-        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.14047760009765625" />
         <entry key="app/src/main/res/layout/fragment_slideshow.xml" value="0.18888888888888888" />
         <entry key="app/src/main/res/layout/fragment_tagnloc.xml" value="0.1" />
         <entry key="app/src/main/res/layout/guide_row.xml" value="0.1" />
         <entry key="app/src/main/res/layout/nav_header_camera_home.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/nav_header_home.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/nav_header_home.xml" value="0.21359649658203125" />
         <entry key="app/src/main/res/menu/activity_camera_home_drawer.xml" value="0.2655461006424054" />
-        <entry key="app/src/main/res/menu/activity_home_drawer.xml" value="0.17239583333333333" />
+        <entry key="app/src/main/res/menu/activity_home_drawer.xml" value="0.355206298828125" />
         <entry key="app/src/main/res/menu/activity_main_drawer.xml" value="0.2713541666666667" />
         <entry key="app/src/main/res/menu/camera_home.xml" value="0.1" />
         <entry key="app/src/main/res/menu/home.xml" value="0.26927083333333335" />

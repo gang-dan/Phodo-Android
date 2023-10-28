@@ -16,14 +16,6 @@ import java.net.URL
 
 class CameraViewModel : ViewModel() {
 
-    /*
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
-    }
-    val text: LiveData<String> = _text
-
-     */
-
     var photoGuide = MutableLiveData<PhotoGuideItemDTO>()
     var isPhootGuide = MutableLiveData<Boolean>()
 
@@ -44,12 +36,12 @@ class CameraViewModel : ViewModel() {
         val maskImg_url = URL(photoGuide.value!!.maskImage)
         // 마스크 이미지 로드
         val maskBitmap = BitmapFactory.decodeStream(maskImg_url.openConnection().getInputStream())
-        maskImage.value = maskBitmap
+        maskImage.value = maskBitmap //photoGuide.value!!.maskImage
 
         // 원본 이미지 로드
         val oriImg_url = URL(photoGuide.value!!.maskImage)
         val originalBitmap = BitmapFactory.decodeStream(oriImg_url.openConnection().getInputStream())
-        originalImage.value = originalBitmap
+        originalImage.value = originalBitmap //photoGuide.value!!.photo
 
         val orijinalMat = Mat()
         Utils.bitmapToMat(originalImage.value, orijinalMat)

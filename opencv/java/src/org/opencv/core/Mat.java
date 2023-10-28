@@ -1,9 +1,8 @@
 package org.opencv.core;
-
 import java.nio.ByteBuffer;
 
 // C++: class Mat
-//javadoc: Mat
+//javadoc: Matz
 public class Mat {
 
     public final long nativeObj;

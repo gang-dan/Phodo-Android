@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Home.ui.HomeActivity">
+    tools:context=".Home.HomeActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -14,19 +14,20 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="56dp"
             android:background="@android:color/transparent"
             app:theme="@style/Theme.PHODO">
 
-            <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="PHODO"
-                android:textColor="@color/purple"
-                android:textSize="35dp"
-                android:fontFamily="@font/vinasans_regular"/>
+            <LinearLayout
+                android:id="@+id/menu_btn_touch_area"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart = "12dp"
+                android:layout_marginTop = "4dp"
+                android:orientation = "horizontal"
+                android:background = "@drawable/ic_nav_menu_btn">
+            </LinearLayout>
+
 
     </androidx.appcompat.widget.Toolbar>
 

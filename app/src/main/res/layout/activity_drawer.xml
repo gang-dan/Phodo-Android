@@ -1,0 +1,106 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer"
+    android:layout_width="240dp"
+    android:layout_height="match_parent"
+    android:layout_gravity="start"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/profile"
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:background="@color/Gray"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/mainTextView"
+            android:layout_width="192dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginBottom="48dp"
+            android:fontFamily="@font/roboto_bold"
+            android:lineSpacingExtra="5sp"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <TextView
+            android:id="@+id/subTextView"
+            android:layout_width="192dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="phodo@gmail.com"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mainTextView"
+            android:visibility="gone"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <RelativeLayout
+        android:layout_width="192dp"
+        android:layout_height="match_parent"
+        android:layout_margin="24dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/nav_camera"
+            android:layout_width="192dp"
+            android:layout_height="54dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp"
+            android:background="@drawable/nav_camera_on"
+            android:orientation="horizontal"></LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/nav_photoguide"
+            android:layout_width="192dp"
+            android:layout_height="54dp"
+            android:layout_below="@+id/nav_camera"
+            android:background="@drawable/nav_photoguide_off"
+            android:orientation="horizontal"></LinearLayout>
+        <LinearLayout
+            android:id="@+id/nav_like"
+            android:layout_width="192dp"
+            android:layout_height="54dp"
+            android:layout_below="@+id/nav_photoguide"
+            android:background="@drawable/nav_like_off"
+            android:orientation="horizontal"></LinearLayout>
+
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_above="@+id/nav_setting"
+            android:layout_marginBottom="16dp">
+            android:background="?android:attr/dividerHorizontal">
+        </com.google.android.material.divider.MaterialDivider>
+
+
+        <LinearLayout
+            android:id="@+id/nav_setting"
+            android:layout_width="192dp"
+            android:layout_height="54dp"
+            android:layout_above="@+id/nav_sign"
+            android:layout_marginBottom="0dp"
+            android:background="@drawable/nav_setting"
+            android:orientation="horizontal"></LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/nav_sign"
+            android:layout_width="192dp"
+            android:layout_height="54dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="0dp"
+            android:background="@drawable/nav_sign_in"
+            android:orientation="horizontal"></LinearLayout>
+
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -14,6 +14,7 @@
         android:layout_height="match_parent"
         android:background="#212121"/>
 
+
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="40dp"
@@ -21,9 +22,15 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:src="@drawable/ic_arrow_back"/>
+    <!--<Button
+        android:id="@+id/filledButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Filled button"
+        style="@style/Widget.Material3.Button" />-->
 
     <android.widget.Button
-        android:id="@+id/button"
+        android:id="@+id/locBtn"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_gravity="right|bottom"
@@ -33,7 +40,7 @@
         android:background="@drawable/baseline_location_on_40" />
 
     <android.widget.Button
-        android:id="@+id/button2"
+        android:id="@+id/likeBtn"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_gravity="right|bottom"
@@ -43,7 +50,7 @@
         android:background="@drawable/ic_favorite_48px" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/applyBtn"
         android:layout_width="60dp"
         android:layout_height="wrap_content"
         android:layout_gravity="left|bottom"
@@ -55,7 +62,7 @@
         app:iconTint="@color/baby_yello" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/applyMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingHorizontal="8dp"
@@ -81,11 +88,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
-
         </LinearLayout>
     </ScrollView>
-
-
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,24 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".Home.ui.home.CameraFragment">
-
+    tools:context=".Home.camera.CameraFragment">
 
     <FrameLayout
+        android:id="@+id/manipulation_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        android:layout_weight="0.35">
+        android:layout_height="112dp"
+        android:layout_alignParentBottom="true">
+
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/gallery_btn"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_marginTop="13dp"
+                android:layout_marginBottom="13dp"
+                android:background="@drawable/ic_gallery_btn"
+                android:orientation="horizontal"></LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/snap_btn"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginLeft="56dp"
+                android:background="@drawable/ic_snap_btn"
+                android:orientation="horizontal"></LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/list_btn"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_marginLeft="56dp"
+                android:layout_marginTop="13dp"
+                android:layout_marginBottom="13dp"
+                android:background="@drawable/ic_list_btn"
+                android:orientation="horizontal"></LinearLayout>
+
+        </LinearLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/camera_screen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="112dp">
+
         <TextureView
             android:id="@+id/textureView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
         </TextureView>
 
+        <!-- PhotoGuide Filter-->
+        <ImageView
+            android:id="@+id/origin_img_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"/>
+
+        <!-- 추후에 수정 필요 -->
         <ImageView
             android:id="@+id/filter_img_land"
             android:layout_width="match_parent"
@@ -37,6 +89,7 @@
             android:layout_height="match_parent"
             android:scaleType="fitCenter"/>
 
+        <!-- PhotoGuide people/landscape Bar -->
         <FrameLayout
             android:id="@+id/seek_container"
             android:layout_width="250dp"
@@ -63,63 +116,9 @@
                 android:layout_marginTop="30dp"
                 android:thumb="@drawable/custom_seekbar_thumb"
                 android:progressDrawable="@drawable/custim_seekbar"/>
-
         </FrameLayout>
 
-        <ImageButton
-            android:id="@+id/filter_delete_btn"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/cancel_48px" />
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"/>
-
-    </FrameLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="0.65"
-        android:background="@color/baby_purple">
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/custom_camera_button" />
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/circle_gallery"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:layout_gravity="center_vertical|left"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="20dp"
-            app:civ_border_color="#ffffff"
-            android:src="@drawable/landscape_48px"
-            app:civ_border_width="2dp"
-            app:civ_border_overlay="true" />
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center_vertical|right"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="40dp"
-            android:src="@drawable/ic_photo_guide" />
-
-
+        <!-- PhotoGuide Btn -->
         <FrameLayout
             android:id="@+id/filter_btn_container"
             android:layout_width="150dp"
@@ -156,12 +155,26 @@
                 app:civ_border_overlay="true"
                 app:civ_border_width="2dp"
                 app:civ_border_color="#ffffff"/>
-
         </FrameLayout>
 
+        <!--  -->
+        <ImageButton
+            android:id="@+id/filter_delete_btn"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/cancel_48px" />
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
 
     </FrameLayout>
 
+</RelativeLayout>
 
-</LinearLayout>

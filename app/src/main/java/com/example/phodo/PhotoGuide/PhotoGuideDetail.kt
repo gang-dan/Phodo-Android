@@ -11,16 +11,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import com.example.phodo.*
-import com.example.phodo.Home.ui.HomeActivity
+import com.example.phodo.Home.HomeActivity
 import com.example.phodo.PhotoMap.MapActivity
 import com.example.phodo.data.RemoteDataSourceImp
 import com.example.phodo.databinding.ActivityPhotoGuideDetailBinding
 import com.example.phodo.dto.PhotoGuidesDTO
+import com.squareup.picasso.Picasso
 
 class PhotoGuideDetail : AppCompatActivity() {
 
     private lateinit var guide_detail_binding: ActivityPhotoGuideDetailBinding
-    //private lateinit var viewModel : PhotoGuideDetailViewModel //by viewModels()
     private val viewModel : PhotoGuideDetailViewModel by viewModels { ViewModelFactory(
         RemoteDataSourceImp(RetrofitInstance)
     ) }
@@ -31,22 +31,33 @@ class PhotoGuideDetail : AppCompatActivity() {
         val view = guide_detail_binding.root
         setContentView(view)
 
-        //viewModel = ViewModelProvider(this).get(PhotoGuideDetailViewModel::class.java)
-
+        // 리스트화면에서 선택된 포토가이드 객체 넘겨받음
         val getPhotoIntent: Intent = intent
         val selected_obj_item = getPhotoIntent.getParcelableExtra<PhotoGuidesDTO>("selected_guide_item")
 
+        // 넘겨받은 포토가이드 객체에서 디테일한 정보 요청
         viewModel.getGuideDetail(selected_obj_item!!.photoGuideId, this)
 
-        viewModel.resultImg.observe(this, Observer {
-            //화면 표시할 것들 (이미자, 컨투어, 좋아요, 태그, 위치 등) -> 변화가 있을 수 있어서 업데이트 필요함
-            Log.d("loc","${viewModel.selectedPhotoItem.value!!.width},${viewModel.selectedPhotoItem.value!!.height}")
-            guide_detail_binding.imageView.setImageBitmap(it)
-            setTag(viewModel.selectedPhotoItem.value!!.tagList)
+        // 포토가이드 디테일 객체를 관찰 (서버에서 성공적으로 전달받으면 화면에 필요한 데이터 표시)
+        viewModel.selectedPhotoItem.observe(this, Observer {
+            //guide_detail_binding.imageView.setImageBitmap(it)
+
+            /* 외곽선 적용된 이미지 */
+            Picasso.get()
+                .load(it.contourImage)
+                .into(guide_detail_binding.imageView)
+
+            /* 태그 */
+            setTag(it.tagList)
+
+            /* 좋아요 수 */
+            /* 위치 객체 설정 */
 
         })
 
-        guide_detail_binding.button.setOnClickListener {
+
+        // 포토가이드 위치 이동 버튼
+        guide_detail_binding.locBtn.setOnClickListener {
             //해당 포토가이드의 위치 추출해서 맵화면으로 넘김
             //위치 없을 경우 위치 없다는 Toast 띄우기
             if (viewModel.selectedPhotoItem.value!!.latitude != null && viewModel.selectedPhotoItem.value!!.longitude != null) {
@@ -60,11 +71,12 @@ class PhotoGuideDetail : AppCompatActivity() {
             }
         }
 
-        guide_detail_binding.button3.setOnClickListener {
+        // 포토가이드 적용하기 버튼
+        guide_detail_binding.applyBtn.setOnClickListener {
+            // 적용에 용이하게 (미리) 가공된 데이터를 넘김 (GuideLine 객체)
             val intent = Intent(this, HomeActivity::class.java)
-            intent.putExtra("selected_guide_item",viewModel.selectedPhotoItem.value)
+            intent.putExtra("selected_guide_item", viewModel.selectedPhotoItem.value)
             startActivity(intent)
-
         }
 
         guide_detail_binding.imageView2.setOnClickListener {
@@ -73,6 +85,7 @@ class PhotoGuideDetail : AppCompatActivity() {
 
     }
 
+    // 화면에 태그를 표시
     fun setTag(tagList : List<String>) {
         if (tagList.size != 0) {
             for (i in 0 until tagList.size) {

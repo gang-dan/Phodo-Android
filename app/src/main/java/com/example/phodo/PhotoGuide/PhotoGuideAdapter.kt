@@ -33,9 +33,13 @@ class PhotoGuideAdapter(private var photoguideList: List<PhotoGuidesDTO>,val onS
 
     override fun onBindViewHolder(guideViewHolder: PhotoGuideViewHolder, position: Int) {//item을 화면에 표시해주는
 
+
         Picasso.get()
             .load(photoguideList[position].photo)
             .into(guideViewHolder.guide_binding.imageView)
+
+
+        //guideViewHolder.guide_binding.imageView.setImageBitmap(photoguideList[position].photo)
 
 
         val item = photoguideList[position]

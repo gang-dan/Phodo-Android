@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Home.ui.home.CameraFragment">
+    tools:context=".photoMaker.PhotoMaker">
 
-    <Toolbar
+    <android.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,11 +17,12 @@
         android:theme="@style/Theme.PHODO"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        android:layout_weight="0.35">
+        android:layout_weight="0.25">
 
         <ImageView
             android:id="@+id/imageview"
@@ -30,6 +31,13 @@
             android:scaleType="fitCenter"
             android:background="@color/black"/>
 
+        <ProgressBar
+            android:id="@+id/photoMaker_progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
     </FrameLayout>
 
 
@@ -37,49 +45,36 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="0.65"
-        android:background="#4D8C8A8A">
+        android:background="@color/white">
+
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/pager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:background="@color/white">
 
-        <LinearLayout
-            android:id="@+id/container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:layout_marginRight="15dp"
-            android:layout_marginBottom="60dp"
-            android:orientation="vertical">
+        </androidx.viewpager2.widget.ViewPager2>
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/custom_tag_box"
-                android:paddingHorizontal="8dp"
-                android:paddingVertical="3dp"
-                android:text="포토가이드를 만들어 보세요!!"
-                android:textColor="@color/white"
-                android:textSize="10dp" />
+        <FrameLayout
+            android:id="@+id/making_photo_guide_btn"
+            android:layout_width="227dp"
+            android:layout_height="57dp"
+            android:layout_marginLeft="83dp"
+            android:layout_marginRight="83dp"
+            android:layout_marginTop="35dp">
+        </FrameLayout>
 
-            <ImageView
-                android:id="@+id/makePhotoGuide"
-                android:layout_width="55dp"
-                android:layout_height="55dp"
-                android:layout_marginTop="10dp"
-                android:layout_gravity="right"
-                android:src="@drawable/ic_auto_awesome_48px" />
-        </LinearLayout>
-
-        <!--
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/pager"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />-->
+        <FrameLayout
+            android:id="@+id/making_photo_guide_message"
+            android:layout_width="283dp"
+            android:layout_height="32dp"
+            android:layout_gravity = "center_horizontal">
+        </FrameLayout>
 
     </FrameLayout>
+
+
 
 
 </LinearLayout>

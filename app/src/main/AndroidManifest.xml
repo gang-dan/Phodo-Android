@@ -57,9 +57,23 @@
             android:exported="true"
             android:theme="@style/Theme.PHODO.NoActionBar">
         </activity>
+        <!--
+        <activity
+            android:name=".Home.MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.PHODO.NoActionBar">
+           <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        -->
 
 
-        <meta-data android:name="com.kakao.sdk.AppKey" android:value="d01aba9b8c8393addd5cbf36ea1f607c"/>
+        <meta-data
+            android:name="com.kakao.sdk.AppKey" android:value = "${KAKAO_SDK_KEY}" />
+
     </application>
 
 </manifest>
