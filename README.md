@@ -11,11 +11,9 @@
 ## 📱 ScreenShot
 | | | | | | |
 | -------- | -------- | -------- | -------- | -------- | -------- |
-| <img src="uiux/상세.png" width="100" height="220">| <img src="uiux/컨투어선택.png" width="100" height="220">| <img src="uiux/태그.png" width="100" height="220">|<img src="uiux/적용.png" width="100" height="220"> | <img src="uiux/리스트.png" width="100" height="220">|<img src="uiux/갤러리생성.png" width="100" height="220">|
+| <img src="uiux/적용.png" width="100" height="220"> | <img src="uiux/리스트.png" width="100" height="220"> | <img src="uiux/상세.png" width="100" height="220">| <img src="uiux/갤러리생성.png" width="100" height="220">|<img src="uiux/컨투어선택.png" width="100" height="220">| <img src="uiux/태그.png" width="100" height="220">|
 
-| | | 
-| -------- | -------- |
-|<img src="https://github.com/gang-dan/Phodo-Android/blob/main/%E1%84%91%E1%85%A9%E1%84%90%E1%85%A9%E1%84%86%E1%85%A2%E1%86%B8%20%E1%84%83%E1%85%AE%E1%86%AF%E1%84%8B%E1%85%A5%E1%84%87%E1%85%A9%E1%84%80%E1%85%B5.png?raw=true" width="100" height="180"> | <img src="https://github.com/gang-dan/Phodo-Android/blob/main/%E1%84%91%E1%85%A9%E1%84%90%E1%85%A9%E1%84%89%E1%85%B3%E1%84%91%E1%85%A1%E1%86%BA%20%E1%84%89%E1%85%A1%E1%86%BC%E1%84%89%E1%85%A6%E1%84%87%E1%85%A9%E1%84%80%E1%85%B5.png?raw=true" width="100" height="180">|
+
 
 
 ## 🗺️ Information
