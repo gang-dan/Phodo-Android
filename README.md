@@ -33,7 +33,8 @@ opencv의 watershed 알고리즘을 사용해 인물을 각각 구별해내는 �
 [수상내역](segmentation/정보기술학회.jpeg)<br>
 
 <br>
-<br>
+
+
 ### MVVM + AAC ViewModel
 MVVM 패턴을 적용하기 위해 AAC ViewModel을 활용하는 방식을 시도했으나 구현방법과 개념을 완전히 숙지하지 못하여 제대로 구현하지 못하였습니다. <br>
 하지만 시행착오 과정에서 MVVM 패턴과 AAC ViewModel의 관계에 대해 자세히 공부할 수 있었던 좋은 계기였다고 생각합니다.<br>
