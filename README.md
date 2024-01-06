@@ -29,21 +29,19 @@ opencv의 watershed 알고리즘을 사용해 인물을 각각 구별해내는 �
 
 [관련 실적]
 * 해당 연구 내용을 논문으로 작성하여 정보기술학회에서 발표해 금상 수상
-[]
+[논문](segmentation/김경민_정보기술학회_2023_final.pdf)<br>
+[수상내역](segmentation/정보기술학회.jpeg)<br>
 
 ### MVVM + AAC
 MVVM 패턴을 적용하기 위해 AAC ViewModel을 활용하는 방식을 시도했으나 구현방법과 개념을 완전히 숙지하지 못하여 제대로 구현하지 못하였습니다.
 하지만 시행착오 과정에서 MVVM 패턴과 AAC ViewModel의 관계에 대해 자세히 공부할 수 있었던 좋은 계기였다고 생각합니다.<br>
+
 
 [관련 실적]
 * 기술블로그 스터디 내용 정리 <br>
 [MVC, MVVM 패턴 그리고 ViewModel](https://studyroadmap-kkm.tistory.com/168) <br>
 [AAC ViewModel 사용하기](https://studyroadmap-kkm.tistory.com/169)
 <br>
-
-또한 그 과정에서 AAC의 Repository를 사용하게 되었습니다. 
-현재는 remoteData 밖에 사용하고 있지 않으나 추후 local data 등을 사용하게 될 경우를 대비해 repository를 인터페이스화 하고 Data layer를 캡슐화하도록 수정할 계획입니다.
-
 
 
 ### Features
